@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "ucc-transport-monitor",
+  "private_key_id": "4341a540527b7666377a1abffc54b470214cf714",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC3jmRNufM90p9m\ndwkZgWyxohWTdF3FnrSebSI2iZ5Wx8cgZE8TEKVENlZMF0EHiakE73nhzkRknH6L\ncrRpnJh8C1d7ax7KHEQuwk6uf9zH5bEHVTT5VGRgbrtuMmo6sxSrFMgTuXEfTGO2\n0BmdU8ZFxIRXCcR4+NNLlq+JsTw0sko0py+88JYdWXzdjLBL1RzYkqRP5uHU8+5/\nTKo5MVHSRe5YTPvGIubDCc0LAUdUgZB8PXb0DHv7xhsNJxdhVFMoE5TQPVyNESsE\nkpXu97UXnNBhLlaFdaRuBCk/i2W0ZgmgX/L3n0l+4aHcMjIpAa949R2lMklFJiI0\nIDMoOCGJAgMBAAECggEAKlewj7WLhQFnP+3JrZaLilaHf6JiV0oLBFjMgaQxYHdp\nWfGJxC4c0aVvNtJOb/yzfq33gb1hTYxELMrjD1HOYx8CqTfGvHzUxayRFfPs7Dfy\nJGzlcXakSRKCLiN3Gd9hry12Ega/L6chgXRz1DUVEdcJaEKajgVoSJGUIME/0C/D\n86jannuLofgUInrRe/oSjooRsd3Rd2q9n3bR5vu5dPD83BAKI+vKE1ezCGwP/E5N\nHLe2TVJq8qKSxArcoLWuendGLcJEXkYStLa8S0mejDLgqZ5ctM886jwZftzp7/sH\nMy+J5RomFC2yBuxAbwX35s6X2LpDFpu63JMCnx5TuQKBgQD0CX0ma2B8GL8qy7q1\nmzzbaQHbuSDN2yLfEijECj2TxblHt9efI3T3YLQISisC6zmM1A/z7pUgQGdHudM6\npMoLcBQaD6FHUczXUYiOlQNxmWJHWRNaPdE2mFVwcxwEa7BhI4k+yjWgWT0DC+FZ\nIIGWCcmOIg0AOXkplLzJtOn52wKBgQDAjegPFlOuXQAWwloxTb6m0q70e0g0vPRM\nUMk/hxSEoiHN3FqR109PnV5uoK3BaGVaVsgY1MDg+vsHo7M4Wo7VAk5g5Pmnsl6O\npfnbbPR4Ohkgvz2GMzAIet494RZDOprIHaBUQWS640SJVOZqO6HzWs7JvbMfgpGM\nRvbHzSwJawKBgCpN7s0XNi2tGI6xrJdI5v7eMD1H1YD6KQxkmH6Li+svDpR5MT7c\nJa2wrOT2/ofOATcBmBZgWKezonPTqeNzp7bd4g42gW3cp1b4QmT9PhCWV2wo6+rr\n5nXBaKZKviOiC3x7bZJd+XfnoGUDzTfnI6+/2Jn0Gy7bx75Gk4ef/iObAoGBAL3j\ns/Qc+o07XbkUFUoF93wgzTSA12Za6TjReoXRuqRKF7giFJc6lBZZhSToBDJ1t23t\nowsJ1OSJ3kFcaIOsmqrpyU24wZNlTeazO8HuovBlqx4mOpA7rqTONpkjfobyJm4u\n+Uvd6W58bbxZI5mkEUQiS0eccici5lJGMVw8s67dAoGAD2rUj+hntk+Q5VF8Xtfd\nVE7DGfPylqyUokQZbcLJ6qpZP6TDbM8DuvcY8Nes8f8cEIuCzo5+2vewrV5xwfb1\nXbFAtPkMDdknmt/yW4H7d+DJ7OO3ZuMvOIKnsGG1bkxIQKBSgT71SHuHOBAotY8Z\nCGvzJ6Px2Vkp7Ij99Ght+qQ=\n-----END PRIVATE KEY-----\n",
+  "client_email": "ucc-transport@ucc-transport-monitor.iam.gserviceaccount.com",
+  "client_id": "103927612509301451386",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/ucc-transport%40ucc-transport-monitor.iam.gserviceaccount.com"
+}
