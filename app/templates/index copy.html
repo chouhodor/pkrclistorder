@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>UCC Waiting List Order</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=0.8" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/e2fb75d014.js" crossorigin="anonymous"></script>
+  <style>
+    .table-borderless>tbody>tr>td,
+    .table-borderless>tbody>tr>th,
+    .table-borderless>tfoot>tr>td,
+    .table-borderless>tfoot>tr>th,
+    .table-borderless>thead>tr>td,
+    .table-borderless>thead>tr>th {
+      border: none;
+    }
+
+    .col-container {
+      display: flex;
+      width: 100%;
+    }
+
+    .col {
+      flex: 1;
+      padding: 16px;
+    }
+
+    .parent {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      grid-column-gap: 0px;
+      grid-row-gap: 0px;
+    }
+
+    .div1 {
+      grid-area: 1 / 1 / 2 / 2;
+    }
+
+    .div2 {
+      grid-area: 1 / 2 / 2 / 3;
+    }
+
+    .div3 {
+      grid-area: 1 / 3 / 2 / 4;
+    }
+
+    .div4 {
+      grid-area: 1 / 4 / 2 / 5;
+    }
+
+    .div5 {
+      grid-area: 1 / 5 / 2 / 6;
+    }
+
+    .div6 {
+      grid-area: 2 / 1 / 3 / 2;
+    }
+
+    .div7 {
+      grid-area: 2 / 2 / 3 / 3;
+    }
+
+    .div8 {
+      grid-area: 2 / 3 / 3 / 4;
+    }
+
+    .div9 {
+      grid-area: 2 / 4 / 3 / 5;
+    }
+
+    .div10 {
+      grid-area: 2 / 5 / 3 / 6;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>UCC-CAC/PKD List Order</h2>
+    <h2>{{ date_times }}</h2>
+    <h4>Jangan Tutup paparan sehingga urusan Line Listing tamat</h4>
+    <div class="col-container">
+      <div class="col">
+        <table class="table table-borderless">
+          <tr>
+            <th>CAC/PKD
+              <hr>
+            </th>
+          </tr>
+          {% for cac in cac_name %}
+          <tr>
+            <td>{{ cac }}</td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+      <div class="col">
+        <table class="table table-borderless">
+          <tr>
+            <th>Status
+              <hr>
+            </th>
+          </tr>
+          {% for ucc in ucc_status %}
+          <tr>
+            <td>{{ ucc }} <i class="fas fa-check-square" style="{{ tick_icon(ucc)}}"></i></td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+      <div class="col">
+        <table class="table table-borderless">
+          <tr>
+            <th>Capaian ke GS
+              <hr>
+            </th>
+          </tr>
+
+          {% for link in link_gs %}
+          <tr>
+            <td><a href="{{ link }}" target="_blank" style="{{ disabled(link) }}">{{ delete_link(link)}}</a></td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+      <div class="col">
+        <table class="table table-borderless">
+          <tr>
+            <th>Capaian ke Excel
+              <hr>
+            </th>
+          </tr>
+
+          {% for file in file_gs %}
+          <tr>
+            <td><a href="{{ file }}" target="_blank" style="{{ disabled(file) }}">{{ delete_link(file)}}</a></td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+      <div class="col">
+        <table class="table table-borderless">
+          <tr>
+            <th>Edit Google Form
+              <hr>
+            </th>
+          </tr>
+          {% for response in response_form %}
+          <tr>
+            <td><a href="{{ response }}" target="_blank">EDIT</a></td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+
+
+
+  </div>
+
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+    crossorigin="anonymous"></script>
+
+</body>
+
+</html>

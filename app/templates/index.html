@@ -9,38 +9,6 @@
     integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
   <script src="https://kit.fontawesome.com/e2fb75d014.js" crossorigin="anonymous"></script>
   <style>
-    .red {
-      height: 10px;
-      width: 10px;
-      background-color: #ff0000;
-      border-radius: 50%;
-      display: inline-block;
-    }
-
-    .orange {
-      height: 10px;
-      width: 10px;
-      background-color: #ff8000;
-      border-radius: 50%;
-      display: inline-block;
-    }
-
-    .yellow {
-      height: 10px;
-      width: 10px;
-      background-color: #fff000;
-      border-radius: 50%;
-      display: inline-block;
-    }
-
-    .white {
-      height: 10px;
-      width: 10px;
-      background-color: #ffffff;
-      border-radius: 50%;
-      display: inline-block;
-    }
-
     .table-borderless>tbody>tr>td,
     .table-borderless>tbody>tr>th,
     .table-borderless>tfoot>tr>td,
@@ -50,16 +18,53 @@
       border: none;
     }
 
-    .col-container {
-      display: flex;
-      width: 100%;
+    .parent {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      grid-column-gap: 0px;
+      grid-row-gap: 0px;
     }
 
-    .col {
-      flex: 1;
-      padding: 16px;
+    .div1 {
+      grid-area: 1 / 1 / 2 / 2;
     }
 
+    .div2 {
+      grid-area: 1 / 2 / 2 / 3;
+    }
+
+    .div3 {
+      grid-area: 1 / 3 / 2 / 4;
+    }
+
+    .div4 {
+      grid-area: 1 / 4 / 2 / 5;
+    }
+
+    .div5 {
+      grid-area: 1 / 5 / 2 / 6;
+    }
+
+    .div6 {
+      grid-area: 2 / 1 / 3 / 2;
+    }
+
+    .div7 {
+      grid-area: 2 / 2 / 3 / 3;
+    }
+
+    .div8 {
+      grid-area: 2 / 3 / 3 / 4;
+    }
+
+    .div9 {
+      grid-area: 2 / 4 / 3 / 5;
+    }
+
+    .div10 {
+      grid-area: 2 / 5 / 3 / 6;
+    }
   </style>
 </head>
 
@@ -67,73 +72,103 @@
   <div class="container">
     <h2>UCC-CAC/PKD List Order</h2>
     <h2>{{ date_times }}</h2>
-    <h4>Jangan Tutup paparan sehingga urusan Line Listing tamat</h4>
-    <div class="col-container">
-      <div class="col-sm-2">
-        <table class="table table-borderless">
-          <tr>
-            <th>CAC/PKD<hr></th>
-          </tr>
-          {% for cac in cac_name %}
-          <tr>
-            <td>{{ cac }}</td>
-          </tr>
-          {% endfor %}
-        </table>
-      </div>
-      <div class="col-sm-2">
-        <table class="table table-borderless">
-          <tr>
-            <th>Status<hr></th>
-          </tr>
-          {% for ucc in ucc_status %}
-          <tr>
-            <td>{{ ucc }}  <i class="fas fa-check-square" style="{{ tick_icon(ucc)}}"></i></td>
-          </tr>
-          {% endfor %}
-        </table>
-      </div>
-      <div class="col-sm-2">
-        <table class="table table-borderless">
-          <tr>
-            <th>Capaian ke GS<hr></th>
-          </tr>
-          
-          {% for link in link_gs %}
-          <tr>
-            <td><a href="{{ link }}" target="_blank" style="{{ disabled(link) }}">{{ delete_link(link)}}</a></td>
-          </tr>
-          {% endfor %}
-        </table>
-      </div>
-      <div class="col-sm-2">
-        <table class="table table-borderless">
-          <tr>
-            <th>Capaian ke Excel<hr></th>
-          </tr>
-          
-          {% for file in file_gs %}
-          <tr>
-            <td><a href="{{ file }}" target="_blank" style="{{ disabled(file) }}">{{ delete_link(file)}}</a></td>
-          </tr>
-          {% endfor %}
-        </table>
-      </div>
-      <div class="col-sm-2">
-        <table class="table table-borderless">
-          <tr>
-            <th>Edit Google Form<hr></th>
-          </tr>
-          {% for response in response_form %}
-          <tr>
-            <td><a href="{{ response }}" target="_blank">EDIT</a></td>
-          </tr>
-          {% endfor %}
-        </table>
-      </div>
 
-      <div class="col-sm-2"></div>
+    <ul>
+      <li>
+        <h5>Jangan Tutup paparan sehingga urusan Line Listing tamat</h5>
+      </li>
+      <li>
+        <h5>Setelah status bertukar 'SIAP' <i class="fas fa-check-square" style="color:green"></i>, Sila KLIK <a href=#>LINK</a> untuk
+          dapatkan Line Listing yang telah diedit</h5>
+      </li>
+    </ul>
+    <br>
+    <div class="container">
+      <div class="parent">
+        <div class="div1">
+          <h6><u>CAC/PKD</u></h6>
+        </div>
+        <div class="div2">
+          <h6><u>Status</u></h6>
+        </div>
+        <div class="div3">
+          <h6><u>Capaian ke GS</u></h6>
+        </div>
+        <div class="div4">
+          <h6><u>Capaian ke Excel</u></h6>
+        </div>
+        <div class="div5">
+          <h6><u>Edit Google Form</u></h6>
+        </div>
+        <div class="div6">
+          <table class="table table-borderless">
+
+            {% for cac in cac_name %}
+            <tr>
+              <td>{{ cac }}<i class="bi bi-pencil-square"></i></td>
+            </tr>
+            {% endfor %}
+          </table>
+        </div>
+        <div class="div7">
+          <table class="table table-borderless">
+
+            {% for ucc in ucc_status %}
+            <tr>
+              <td>{{ ucc }} <i class="fas fa-check-square" style="{{ tick_icon(ucc)}}"></i></td>
+            </tr>
+            {% endfor %}
+          </table>
+        </div>
+        <div class="div8">
+          <table class="table table-borderless">
+
+            {% for link in link_gs %}
+            <tr>
+              <td><a href="{{ link }}" target="_blank" style="{{ disabled(link) }}">{{ delete_link(link)}}</a></td>
+            </tr>
+            {% endfor %}
+          </table>
+        </div>
+        <div class="div9">
+          <table class="table table-borderless">
+
+
+            {% for file in file_gs %}
+            <tr>
+              <td><a href="{{ file }}" target="_blank" style="{{ disabled(file) }}">{{ delete_link(file)}}</a></td>
+            </tr>
+            {% endfor %}
+          </table>
+        </div>
+        <div class="div10">
+          <table class="table table-borderless">
+            {% for response in response_form %}
+            <tr>
+              <td><a href="{{ response }}" target="_blank">EDIT</a></td>
+            </tr>
+            {% endfor %}
+          </table>
+        </div>
+      </div>
+      <div class="col">
+
+      </div>
+      <div class="col">
+
+      </div>
+      <div class="col">
+
+      </div>
+      <div class="col">
+
+      </div>
+      <div class="col">
+
+      </div>
     </div>
+
+
 
   </div>
 
