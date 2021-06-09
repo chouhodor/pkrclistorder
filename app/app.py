@@ -12,7 +12,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'ucctransporttopsecret'
 
 
-'''
+
 #live test
 scopes = ["https://spreadsheets.google.com/feeds","https://www.googleapis.com/auth/drive.file","https://www.googleapis.com/auth/drive"]
 json_creds = os.getenv("GOOGLE_SHEETS_CREDS_JSON")
@@ -30,7 +30,7 @@ scope = ["https://spreadsheets.google.com/feeds","https://www.googleapis.com/aut
 creds = ServiceAccountCredentials.from_json_keyfile_name('ucc-transport.json', scope)
 client = gspread.authorize(creds)
 #local test
-
+'''
 
 
 spreadsheet = client.open_by_url("https://docs.google.com/spreadsheets/d/1sc9skuA6O9Jh19WaL2N_qAfw6CaabjO9BUMhb8A3-wY")
