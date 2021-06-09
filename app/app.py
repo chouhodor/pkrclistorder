@@ -72,9 +72,6 @@ def index():
             return siap
         else:
             return belum
-    
-
-
 
     return render_template('index.html',  
     dict_sheet = dict_sheet,
@@ -89,6 +86,11 @@ def index():
     tick_icon=tick_icon
     )
 
+@app.route('/form')
+def form():
+    return redirect("https://docs.google.com/forms/d/e/1FAIpQLSfce09I5XrMIXsnSTJvmrsVuS5y8BClYhVwjK8i75EMYfwskA/viewform?usp=sf_link")
+
+    
 
 
 if __name__ == '__main__':
