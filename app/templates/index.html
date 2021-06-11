@@ -18,32 +18,12 @@
       border: none;
     }
 
-    .parent1 {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      grid-template-rows: 1fr;
-      grid-column-gap: 0px;
-      grid-row-gap: 0px;
+    td {
+      text-align: center;
     }
 
-    .div1 {
-      grid-area: 1 / 1 / 2 / 2;
-    }
-
-    .div2 {
-      grid-area: 1 / 2 / 2 / 3;
-    }
-
-    .div3 {
-      grid-area: 1 / 3 / 2 / 4;
-    }
-
-    .div4 {
-      grid-area: 1 / 4 / 2 / 5;
-    }
-
-    .div5 {
-      grid-area: 1 / 5 / 2 / 6;
+    th {
+      text-align: center;
     }
   </style>
 </head>
@@ -66,76 +46,41 @@
     <br>
   </div>
   <div class="container">
-    <div class="parent1">
-      <div class="div1" style="align-self: flex-none">
-        <h6><u>CAC/PKD</u></h6>
-      </div>
-      <div class="div2" style="align-self: flex-none">
-        <h6><u>Status</u></h6>
-      </div>
-      <div class="div3" style="align-self: flex-none">
-        <h6><u>Capaian ke GS</u></h6>
-      </div>
-      <div class="div4" style="align-self: flex-none">
-        <h6><u>Capaian ke Excel</u></h6>
-      </div>
-      <div class="div5" style="align-self: flex-none">
-        <h6><u>Edit Google Form</u></h6>
-      </div>
-      <div class="div6">
-        <table class="table table-borderless">
+    <table class="table" width="100%">
+      <thead>
+        <tr>
+          <th>CAC/PKD</th>
+          <th><i class="fas fa-male fa-2x"></i></th>
+          <th><i class="fas fa-female fa-2x"></i></th>
+          <th><i class="fas fa-user-friends fa-2x"></i></th>
+          <th>Status</th>
+          <th>GS</th>
+          <th>Excel</th>
+          <th>Edit Form</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in dict_sheet %}
 
-          {% for cac in cac_name %}
-          <tr>
-            <td>{{ cac }}<i class="bi bi-pencil-square"></i></td>
-          </tr>
-          {% endfor %}
-        </table>
-      </div>
-      <div class="div7">
-        <table class="table table-borderless">
+        <tr>
+          <td style="text-align:left">{{ item.cac }}</td>
+          <td>{{ item.male }}</td>
+          <td>{{ item.female }}</td>
+          <td>{{ item.family }}</td>
+          <td>{{ item.status }}</td>
+          <td><a href="{{ item.g_sheet }}" target="_blank">{{ delete_link(item.g_sheet)}}</a> <i
+              class="{{ delete_icon(item.g_sheet) }}" style="{{ tick_icon(item.status)}}"></i></td>
+          <td><a href="{{ item.excel }}" target="_blank">{{ delete_link(item.excel)}}</a> <i
+              class="{{ delete_icon(item.excel) }}" style="{{ tick_icon(item.status)}}"></i></td>
+          <td><a href="{{ item.edit_response }}" target="_blank">{{ delete_edit(item.edit_response)}}</a></td>
+        </tr>
+        {% endfor %}
 
-          {% for ucc in ucc_status %}
-          <tr>
-            <td>{{ ucc }} <i class="fas fa-check-square" style="{{ tick_icon(ucc)}}"></i></td>
-          </tr>
-          {% endfor %}
-        </table>
-      </div>
-      <div class="div8">
-        <table class="table table-borderless">
-
-          {% for link in link_gs %}
-          <tr>
-            <td><a href="{{ link }}" target="_blank" style="{{ disabled(link) }}">{{ delete_link(link)}}</a></td>
-          </tr>
-          {% endfor %}
-        </table>
-      </div>
-      <div class="div9">
-        <table class="table table-borderless">
-
-
-          {% for file in file_gs %}
-          <tr>
-            <td><a href="{{ file }}" target="_blank" style="{{ disabled(file) }}">{{ delete_link(file)}}</a></td>
-          </tr>
-          {% endfor %}
-        </table>
-      </div>
-      <div class="div10">
-        <table class="table table-borderless">
-          {% for response in response_form %}
-          <tr>
-            <td><a href="{{ response }}" target="_blank" style="{{ disabled(response) }}">{{ delete_edit(response)}}</a></td>
-          </tr>
-          {% endfor %}
-        </table>
-      </div>
-
-
-
-    </div>
+      </tbody>
+    </table>
+  </div>
+  <div class="text-center">
+    <a href="{{ url_for('index') }}" class="btn btn-primary btn-rounded mb-4">RELOAD PAGE</a>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"

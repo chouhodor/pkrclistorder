@@ -44,24 +44,30 @@ def index():
     dict_sheet = sheet.get_all_records()
     date_times = (datetime.now() + timedelta(hours=8)).strftime("%d/%m/%Y %H:%M:%S")
    
+    for d in dict_sheet:
+        d['cac'] = d.pop('CAC/PKD')
+        d['pic'] = d.pop('Name PIC/Pemanggil')
+        d['contact'] = d.pop('No Contact PIC/Pemanggil')
+        d['male'] = d.pop('Bilangan Pesakit Lelaki')
+        d['female'] = d.pop('Bilangan Pesakit Perempuan')
+        d['family'] = d.pop('Bilangan keluarga')
+        d['catatan'] = d.pop('Catatan')
+        d['g_sheet'] = d.pop('A. Link ke Google Sheet')
+        d['excel'] = d.pop('B. ATAU MuatNaik Line listing')
+        d['status'] = d.pop('Status UCC')
+        d['edit_response'] = d.pop('Form Response Edit URL')
     
-    cac_name = [d['CAC/PKD'] for d in dict_sheet]
-    link_gs = [d['A. Link ke Google Sheet'] for d in dict_sheet]
-    file_gs = [d['B. ATAU MuatNaik Line listing'] for d in dict_sheet]
-    response_form = [d['Form Response Edit URL'] for d in dict_sheet]
-    ucc_status = [d['Status UCC'] for d in dict_sheet]
-
-
     def delete_link(link):
-        empty = '.'
+        empty = ''
         text ='LINK'
         if link == '':
             return empty
         else:
             return text
-    
+
+  
     def delete_edit(edit):
-        empty = '.'
+        empty = ''
         text ='EDIT'
         if edit == '':
             return empty
@@ -73,26 +79,34 @@ def index():
         if hlink == '':
             return empty
 
+    def delete_icon(icon):
+        true = 'fas fa-check-circle'
+        empty = ''
+
+        if icon == '':
+            return empty
+        else:
+            return true
+
     def tick_icon(tick):
         siap = 'color:green'
-        belum = 'color:white'
+        masalah = 'color:orange'
+        terima = 'color:white'
         if tick == 'SIAP':
             return siap
+        elif tick == 'MASALAH':
+            return masalah
         else:
-            return belum
+            return terima
     
     return render_template('index.html',  
     dict_sheet = dict_sheet,
     date_times=date_times,
-    cac_name=cac_name,
-    link_gs=link_gs,
-    file_gs=file_gs,
-    response_form=response_form,
-    ucc_status=ucc_status,
     delete_link=delete_link,
     disabled=disabled,
     tick_icon=tick_icon,
-    delete_edit=delete_edit
+    delete_edit=delete_edit,
+    delete_icon=delete_icon
     )
 
 @app.route('/worklist', methods=['POST','GET'])
@@ -100,6 +114,7 @@ def worklist():
 
 
     dict_sheet = sheet.get_all_records()
+    date_times = (datetime.now() + timedelta(hours=8)).strftime("%d/%m/%Y %H:%M:%S")
     for d in dict_sheet:
         d['cac'] = d.pop('CAC/PKD')
         d['pic'] = d.pop('Name PIC/Pemanggil')
@@ -129,7 +144,7 @@ def worklist():
             return dots
 
 
-    date_times = (datetime.now() + timedelta(hours=8)).strftime("%d/%m/%Y %H:%M:%S")
+    
    
     status_dict = ['J2', 'J3', 'J4', 'J5', 'J6', 'J7', 'J8', 'J9', 'J10' ]
     uccform = zip(dict_sheet, status_dict)
@@ -158,7 +173,9 @@ def status():
 def form():
     return redirect("https://docs.google.com/forms/d/e/1FAIpQLSfce09I5XrMIXsnSTJvmrsVuS5y8BClYhVwjK8i75EMYfwskA/viewform?usp=sf_link")
 
-    
+@app.route('/panduan')
+def panduan():
+    return render_template('panduan.html')
 
 
 if __name__ == '__main__':

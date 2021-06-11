@@ -21,13 +21,59 @@
     td {
       text-align: center;
     }
+
+    th {
+      text-align: center;
+    }
+
+    .collapsible {
+      background-color: #777;
+      color: white;
+      cursor: pointer;
+      padding: 18px;
+      width: 100%;
+      border: none;
+      text-align: left;
+      outline: none;
+      font-size: 15px;
+    }
+
+    .active,
+    .collapsible:hover {
+      background-color: #555;
+    }
+
+    .collapsible:after {
+      content: '\002B';
+      color: white;
+      font-weight: bold;
+      float: right;
+      margin-left: 5px;
+    }
+
+    .active:after {
+      content: "\2212";
+    }
+
+    .content {
+      padding: 0 18px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.2s ease-out;
+      background-color: #f1f1f1;
+    }
   </style>
 </head>
 
 <body>
-  <div class="container">
-    <h2>UCC Petugas Worklist</h2>
-    <h2>{{ date_times }}</h2>
+  <div class="container" align="center">
+    <h2>UCC Petugas Worklist {{ date_times }} </h2>
+    <p>
+      Refresh timer
+      <span id="seconds">60</span> seconds.
+    </p>
+  </div>
+  <div class="container" align="right">
     <a href="{{ url_for('index') }}" button type="button" class="btn btn-secondary">CAC/PKD List Order</a>
     <br>
     <br>
@@ -70,6 +116,7 @@
                 <option value="{{ dict_sheet.status}}" selected>{{ dict_sheet.status}}</option>
                 <option value="TERIMA">TERIMA</option>
                 <option value="SIAP">SIAP</option>
+                <option value="MASALAH">MASALAH</option>
               </select>
 
               <input type="hidden" id="custId" name="status_id" value="{{ status_dict }}">
@@ -81,7 +128,12 @@
       </tbody>
     </table>
   </div>
-
+  <div class="text-center">
+    <a class="btn btn-secondary" href="{{ url_for('panduan')}}" onclick="window.open('{{ url_for('panduan')}}', 
+                         'newwindow', 
+                         'width=500,height=700'); 
+              return false;">Panduan Petugas UCC</a>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
@@ -91,6 +143,49 @@
     var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
       return new bootstrap.Popover(popoverTriggerEl)
     })
+  </script>
+  <script>
+    // Countdown timer for redirecting to another URL after several seconds
+
+    var seconds = 60; // seconds for HTML
+    var foo; // variable for clearInterval() function
+
+    function redirect() {
+      document.location.href = "{{ url_for('worklist') }}";
+    }
+
+    function updateSecs() {
+      document.getElementById("seconds").innerHTML = seconds;
+      seconds--;
+      if (seconds == -1) {
+        clearInterval(foo);
+        redirect();
+      }
+    }
+
+    function countdownTimer() {
+      foo = setInterval(function () {
+        updateSecs();
+      }, 1000);
+    }
+
+    countdownTimer();
+  </script>
+  <script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function () {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.maxHeight) {
+          content.style.maxHeight = null;
+        } else {
+          content.style.maxHeight = content.scrollHeight + "px";
+        }
+      });
+    }
   </script>
 
 </body>
