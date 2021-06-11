@@ -52,43 +52,6 @@ def index():
 
     date_times = (datetime.now() + timedelta(hours=8)).strftime("%d/%m/%Y %H:%M:%S")
    
-    '''
-    cac_name = [d['cac'] for d in dict_sheet]
-    link_gs = [d['A. Link ke Google Sheet'] for d in dict_sheet]
-    file_gs = [d['B. ATAU MuatNaik Line listing'] for d in dict_sheet]
-    response_form = [d['Form Response Edit URL'] for d in dict_sheet]
-    ucc_status = [d['status'] for d in dict_sheet]
-    
-
-    def delete_link(link):
-        empty = '.'
-        text ='LINK'
-        if link == '':
-            return empty
-        else:
-            return text
-    
-    def delete_edit(edit):
-        empty = '.'
-        text ='EDIT'
-        if edit == '':
-            return empty
-        else:
-            return text
-
-    def disabled(hlink):
-        empty = 'color:white'
-        if hlink == '':
-            return empty
-
-    def tick_icon(tick):
-        siap = 'color:green'
-        belum = 'color:white'
-        if tick == 'SIAP':
-            return siap
-        else:
-            return belum
-    '''
     status_dict = ['J2', 'J3', 'J4', 'J5', 'J6', 'J7', 'J8', 'J9', 'J10' ]
     uccform = zip(dict_sheet, status_dict)
 
@@ -98,15 +61,6 @@ def index():
     date_times=date_times,
     status_dict=status_dict,
     uccform=uccform
-    #cac_name=cac_name,
-    #link_gs=link_gs,
-    #file_gs=file_gs,
-    #response_form=response_form,
-    #ucc_status=ucc_status,
-    #delete_link=delete_link,
-    #disabled=disabled,
-    #tick_icon=tick_icon,
-    #delete_edit=delete_edit
     )
 
 @app.route('/status', methods = ['POST'])

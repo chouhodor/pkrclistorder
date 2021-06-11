@@ -104,9 +104,13 @@ def worklist():
         d['cac'] = d.pop('CAC/PKD')
         d['pic'] = d.pop('Name PIC/Pemanggil')
         d['contact'] = d.pop('No Contact PIC/Pemanggil')
-        d['status'] = d.pop('Status UCC')
+        d['male'] = d.pop('Bilangan Pesakit Lelaki')
+        d['female'] = d.pop('Bilangan Pesakit Perempuan')
+        d['family'] = d.pop('Bilangan keluarga')
+        d['catatan'] = d.pop('Catatan')
         d['g_sheet'] = d.pop('A. Link ke Google Sheet')
         d['excel'] = d.pop('B. ATAU MuatNaik Line listing')
+        d['status'] = d.pop('Status UCC')
     
     def delete_link(link):
         empty = ''
@@ -115,6 +119,14 @@ def worklist():
             return empty
         else:
             return text
+
+    def catatan_dot(dot):
+        empty = 'far fa-comment fa-lg'
+        dots ='far fa-comment-dots fa-lg'
+        if dot == '':
+            return empty
+        else:
+            return dots
 
 
     date_times = (datetime.now() + timedelta(hours=8)).strftime("%d/%m/%Y %H:%M:%S")
@@ -128,7 +140,8 @@ def worklist():
     date_times=date_times,
     status_dict=status_dict,
     uccform=uccform,
-    delete_link=delete_link
+    delete_link=delete_link,
+    catatan_dot=catatan_dot
     )
 
 @app.route('/status', methods = ['POST'])

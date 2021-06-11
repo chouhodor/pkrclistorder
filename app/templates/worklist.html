@@ -18,6 +18,9 @@
       border: none;
     }
 
+    td {
+      text-align: center;
+    }
   </style>
 </head>
 
@@ -33,9 +36,13 @@
     <table class="table" width="100%">
       <thead>
         <tr>
-          <th>CAC</th>
-          <th>Nama</th>
-          <th>No Contact</th>
+          <th>CAC/PKD</th>
+          <th>PIC</th>
+          <th>Contact</th>
+          <th><i class="fas fa-male fa-2x"></i></th>
+          <th><i class="fas fa-female fa-2x"></i></th>
+          <th><i class="fas fa-user-friends fa-2x"></i></th>
+          <th>Catatan</th>
           <th>GS</th>
           <th>Excel</th>
           <th>Status</th>
@@ -46,9 +53,15 @@
         {% for dict_sheet,status_dict in uccform %}
 
         <tr>
-          <td>{{ dict_sheet.cac }}</td>
-          <td>{{ dict_sheet.pic }}</td>
+          <td style="text-align:left">{{ dict_sheet.cac }}</td>
+          <td style="text-align:left">{{ dict_sheet.pic }}</td>
           <td>{{ dict_sheet.contact }}</td>
+          <td>{{ dict_sheet.male }}</td>
+          <td>{{ dict_sheet.female }}</td>
+          <td>{{ dict_sheet.family }}</td>
+          <td><i role="button" class="{{ catatan_dot(dict_sheet.catatan) }}" data-bs-toggle="popover" title="Catatan"
+              data-bs-content="{{ dict_sheet.catatan }}"></i>
+          </td>
           <td><a href="{{ dict_sheet.g_sheet }}" target="_blank">{{ delete_link(dict_sheet.g_sheet)}}</a></td>
           <td><a href="{{ dict_sheet.excel }}" target="_blank">{{ delete_link(dict_sheet.excel)}}</a></td>
           <td>
@@ -73,6 +86,12 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
     crossorigin="anonymous"></script>
+  <script>
+    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+    var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+      return new bootstrap.Popover(popoverTriggerEl)
+    })
+  </script>
 
 </body>
 
