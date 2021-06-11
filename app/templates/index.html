@@ -127,7 +127,7 @@
         <table class="table table-borderless">
           {% for response in response_form %}
           <tr>
-            <td><a href="{{ response }}" target="_blank">EDIT</a></td>
+            <td><a href="{{ response }}" target="_blank" style="{{ disabled(response) }}">{{ delete_edit(response)}}</a></td>
           </tr>
           {% endfor %}
         </table>

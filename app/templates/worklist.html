@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>UCC Waiting List Order</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=0.8" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/e2fb75d014.js" crossorigin="anonymous"></script>
+  <style>
+    .table-borderless>tbody>tr>td,
+    .table-borderless>tbody>tr>th,
+    .table-borderless>tfoot>tr>td,
+    .table-borderless>tfoot>tr>th,
+    .table-borderless>thead>tr>td,
+    .table-borderless>thead>tr>th {
+      border: none;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>UCC Petugas Worklist</h2>
+    <h2>{{ date_times }}</h2>
+    <a href="{{ url_for('index') }}" button type="button" class="btn btn-secondary">CAC/PKD List Order</a>
+    <br>
+    <br>
+  </div>
+  <div class="container">
+    <table class="table" width="100%">
+      <thead>
+        <tr>
+          <th>CAC</th>
+          <th>Nama</th>
+          <th>No Contact</th>
+          <th>GS</th>
+          <th>Excel</th>
+          <th>Status</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        {% for dict_sheet,status_dict in uccform %}
+
+        <tr>
+          <td>{{ dict_sheet.cac }}</td>
+          <td>{{ dict_sheet.pic }}</td>
+          <td>{{ dict_sheet.contact }}</td>
+          <td><a href="{{ dict_sheet.g_sheet }}" target="_blank">{{ delete_link(dict_sheet.g_sheet)}}</a></td>
+          <td><a href="{{ dict_sheet.excel }}" target="_blank">{{ delete_link(dict_sheet.excel)}}</a></td>
+          <td>
+            <form action=/status method="POST">
+              <select name="status_form" id="status_form" onchange="this.form.submit()">
+                <option value="{{ dict_sheet.status}}" selected>{{ dict_sheet.status}}</option>
+                <option value="TERIMA">TERIMA</option>
+                <option value="SIAP">SIAP</option>
+              </select>
+
+              <input type="hidden" id="custId" name="status_id" value="{{ status_dict }}">
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+
+      </tbody>
+    </table>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+    crossorigin="anonymous"></script>
+
+</body>
+
+</html>
