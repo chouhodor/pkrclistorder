@@ -25,43 +25,6 @@
     th {
       text-align: center;
     }
-
-    .collapsible {
-      background-color: #777;
-      color: white;
-      cursor: pointer;
-      padding: 18px;
-      width: 100%;
-      border: none;
-      text-align: left;
-      outline: none;
-      font-size: 15px;
-    }
-
-    .active,
-    .collapsible:hover {
-      background-color: #555;
-    }
-
-    .collapsible:after {
-      content: '\002B';
-      color: white;
-      font-weight: bold;
-      float: right;
-      margin-left: 5px;
-    }
-
-    .active:after {
-      content: "\2212";
-    }
-
-    .content {
-      padding: 0 18px;
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.2s ease-out;
-      background-color: #f1f1f1;
-    }
   </style>
 </head>
 
@@ -105,8 +68,8 @@
           <td>{{ dict_sheet.male }}</td>
           <td>{{ dict_sheet.female }}</td>
           <td>{{ dict_sheet.family }}</td>
-          <td><i role="button" class="{{ catatan_dot(dict_sheet.catatan) }}" data-bs-toggle="popover" title="Catatan"
-              data-bs-content="{{ dict_sheet.catatan }}"></i>
+          <td><i tabindex="0" role="button" class="{{ catatan_dot(dict_sheet.catatan) }}" data-bs-trigger="focus" data-bs-toggle="popover"
+              data-bs-content="{{ catatan_empty(dict_sheet.catatan) }}"></i>
           </td>
           <td><a href="{{ dict_sheet.g_sheet }}" target="_blank">{{ delete_link(dict_sheet.g_sheet)}}</a></td>
           <td><a href="{{ dict_sheet.excel }}" target="_blank">{{ delete_link(dict_sheet.excel)}}</a></td>
@@ -133,15 +96,23 @@
                          'newwindow', 
                          'width=500,height=700'); 
               return false;">Panduan Petugas UCC</a>
+
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+    integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
     crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"
+    integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT"
+    crossorigin="anonymous"></script>
+
   <script>
     var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
     var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
       return new bootstrap.Popover(popoverTriggerEl)
+    })
+    var popover = new bootstrap.Popover(document.querySelector('.popover-dismiss'), {
+      trigger: 'focus'
     })
   </script>
   <script>
@@ -171,23 +142,6 @@
 
     countdownTimer();
   </script>
-  <script>
-    var coll = document.getElementsByClassName("collapsible");
-    var i;
-
-    for (i = 0; i < coll.length; i++) {
-      coll[i].addEventListener("click", function () {
-        this.classList.toggle("active");
-        var content = this.nextElementSibling;
-        if (content.style.maxHeight) {
-          content.style.maxHeight = null;
-        } else {
-          content.style.maxHeight = content.scrollHeight + "px";
-        }
-      });
-    }
-  </script>
-
 </body>
 
 </html>

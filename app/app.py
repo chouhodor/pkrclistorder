@@ -30,8 +30,8 @@ scope = ["https://spreadsheets.google.com/feeds","https://www.googleapis.com/aut
 creds = ServiceAccountCredentials.from_json_keyfile_name('app/ucc-transport.json', scope)
 client = gspread.authorize(creds)
 #local test
-'''
 
+'''
 
 spreadsheet = client.open_by_url("https://docs.google.com/spreadsheets/d/1sc9skuA6O9Jh19WaL2N_qAfw6CaabjO9BUMhb8A3-wY")
 sheet = spreadsheet.sheet1 
@@ -143,7 +143,13 @@ def worklist():
         else:
             return dots
 
-
+    def catatan_empty(emp):
+        empty = 'tiada'
+        if emp == '':
+            return empty
+        else:
+            return emp
+            
     
    
     status_dict = ['J2', 'J3', 'J4', 'J5', 'J6', 'J7', 'J8', 'J9', 'J10' ]
@@ -156,7 +162,8 @@ def worklist():
     status_dict=status_dict,
     uccform=uccform,
     delete_link=delete_link,
-    catatan_dot=catatan_dot
+    catatan_dot=catatan_dot,
+    catatan_empty=catatan_empty
     )
 
 @app.route('/status', methods = ['POST'])
