@@ -149,10 +149,14 @@ def worklist():
             return empty
         else:
             return emp
-            
     
-   
-    status_dict = ['J2', 'J3', 'J4', 'J5', 'J6', 'J7', 'J8', 'J9', 'J10', 'J11', 'J12', 'J13', 'J14', 'J15', 'J16', 'J17', 'J18', 'J19', 'J20' ]
+    status_dict = []
+
+    a= range(2, 50)
+
+    for i in a:
+        status_dict.append('J'+str(i))
+      
     uccform = zip(dict_sheet, status_dict)
 
 
