@@ -34,7 +34,7 @@ client = gspread.authorize(creds)
 '''
 
 spreadsheet = client.open_by_url("https://docs.google.com/spreadsheets/d/1sc9skuA6O9Jh19WaL2N_qAfw6CaabjO9BUMhb8A3-wY")
-sheet = spreadsheet.sheet3 
+sheet = spreadsheet.sheet1 
 
 
 @app.route('/', methods=['POST','GET'])
