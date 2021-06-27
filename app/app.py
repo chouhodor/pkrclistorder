@@ -33,7 +33,7 @@ client = gspread.authorize(creds)
 
 '''
 
-spreadsheet = client.open_by_url("https://docs.google.com/spreadsheets/d/1sc9skuA6O9Jh19WaL2N_qAfw6CaabjO9BUMhb8A3-wY")
+spreadsheet = client.open_by_url("https://docs.google.com/spreadsheets/d/1VXYj_XYbLJLYTKY2G39YEffylcKS1PTSsGMyO2YqD-8")
 sheet = spreadsheet.sheet1 
 
 
@@ -155,7 +155,7 @@ def worklist():
     a= range(2, 50)
 
     for i in a:
-        status_dict.append('I'+str(i))
+        status_dict.append('J'+str(i))
       
     uccform = zip(dict_sheet, status_dict)
 
