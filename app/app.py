@@ -24,13 +24,11 @@ client = gspread.authorize(creds)
 #live test
 
 '''
-
 #local test
 scope = ["https://spreadsheets.google.com/feeds","https://www.googleapis.com/auth/drive.file","https://www.googleapis.com/auth/drive"]
 creds = ServiceAccountCredentials.from_json_keyfile_name('app/ucc-transport.json', scope)
 client = gspread.authorize(creds)
 #local test
-
 '''
 
 spreadsheet = client.open_by_url("https://docs.google.com/spreadsheets/d/1VXYj_XYbLJLYTKY2G39YEffylcKS1PTSsGMyO2YqD-8")
