@@ -186,6 +186,10 @@ def form():
 def panduan():
     return render_template('panduan.html')
 
+@app.route('/kriteria')
+def kriteria():
+    return render_template('kriteria.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)

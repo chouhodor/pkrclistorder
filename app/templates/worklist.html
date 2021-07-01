@@ -68,8 +68,8 @@
           <td>{{ dict_sheet.male }}</td>
           <td>{{ dict_sheet.female }}</td>
           <td>{{ dict_sheet.family }}</td>
-          <td><i tabindex="0" role="button" class="{{ catatan_dot(dict_sheet.catatan) }}" data-bs-trigger="focus" data-bs-toggle="popover"
-              data-bs-content="{{ catatan_empty(dict_sheet.catatan) }}"></i>
+          <td><i tabindex="0" role="button" class="{{ catatan_dot(dict_sheet.catatan) }}" data-bs-trigger="focus"
+              data-bs-toggle="popover" data-bs-content="{{ catatan_empty(dict_sheet.catatan) }}"></i>
           </td>
           <td><a href="{{ dict_sheet.g_sheet }}" target="_blank">{{ delete_link(dict_sheet.g_sheet)}}</a></td>
           <td><a href="{{ dict_sheet.excel }}" target="_blank">{{ delete_link(dict_sheet.excel)}}</a></td>
@@ -96,8 +96,14 @@
                          'newwindow', 
                          'width=500,height=700'); 
               return false;">Panduan Petugas UCC</a>
+    <a class="btn btn-primary" href="{{ url_for('kriteria')}}" onclick="window.open('{{ url_for('kriteria')}}', 
+                          'newwindow', 
+                          'width=900,height=500'); 
+              return false;">Kriteria PKRC</a>
+    
 
   </div>
+  
 
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
     integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
