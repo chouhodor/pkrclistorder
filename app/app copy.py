@@ -12,7 +12,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'ucctransporttopsecret'
 
 
-
+'''
 #live test
 scopes = ["https://spreadsheets.google.com/feeds","https://www.googleapis.com/auth/drive.file","https://www.googleapis.com/auth/drive"]
 json_creds = os.getenv("GOOGLE_SHEETS_CREDS_JSON")
@@ -29,13 +29,10 @@ scope = ["https://spreadsheets.google.com/feeds","https://www.googleapis.com/aut
 creds = ServiceAccountCredentials.from_json_keyfile_name('app/ucc-transport.json', scope)
 client = gspread.authorize(creds)
 #local test
-'''
 
-spreadsheet_lo = client.open_by_url("https://docs.google.com/spreadsheets/d/1VXYj_XYbLJLYTKY2G39YEffylcKS1PTSsGMyO2YqD-8")
-sheet = spreadsheet_lo.sheet1 
 
-spreadsheet_archive = client.open_by_url("https://docs.google.com/spreadsheets/d/1O0P4xms_54-aV5O7_I6UPRp9dLc5nygP65U7Z84kHis")
-archive_sheet = spreadsheet_archive.sheet1 
+spreadsheet = client.open_by_url("https://docs.google.com/spreadsheets/d/1VXYj_XYbLJLYTKY2G39YEffylcKS1PTSsGMyO2YqD-8")
+sheet = spreadsheet.sheet1 
 
 
 @app.route('/', methods=['POST','GET'])
@@ -170,60 +167,6 @@ def worklist():
     catatan_dot=catatan_dot,
     catatan_empty=catatan_empty
     )
-
-@app.route('/archive', methods=['POST','GET'])
-def archive():
-
-
-    dict_sheet = archive_sheet.get_all_records()
-    date_times = (datetime.now() + timedelta(hours=8)).strftime("%d/%m/%Y %H:%M:%S")
-    for d in dict_sheet:
-        d['date'] = d.pop('Timestamp')
-        d['cac'] = d.pop('CAC/PKD')
-        d['pic'] = d.pop('Name PIC/Pemanggil')
-        d['contact'] = d.pop('No Contact PIC/Pemanggil')
-        d['male'] = d.pop('Bilangan Pesakit Lelaki')
-        d['female'] = d.pop('Bilangan Pesakit Perempuan')
-        d['family'] = d.pop('Bilangan keluarga')
-        d['g_sheet'] = d.pop('A. Link ke Google Sheet')
-        d['excel'] = d.pop('B. ATAU MuatNaik Line listing')
-    
-    def delete_link(link):
-        empty = ''
-        text ='LINK'
-        if link == '':
-            return empty
-        else:
-            return text
-
-    def catatan_dot(dot):
-        empty = 'far fa-comment fa-lg'
-        dots ='far fa-comment-dots fa-lg'
-        if dot == '':
-            return empty
-        else:
-            return dots
-
-    def catatan_empty(emp):
-        empty = 'tiada'
-        if emp == '':
-            return empty
-        else:
-            return emp
-
-    dict_sheet.reverse()
-    
-
-
-    return render_template('archive.html',  
-    dict_sheet = dict_sheet,
-    date_times=date_times,
-    delete_link=delete_link,
-    catatan_dot=catatan_dot,
-    catatan_empty=catatan_empty
-    )
-
-
 
 @app.route('/status', methods = ['POST'])
 def status():
