@@ -152,19 +152,25 @@ def worklist():
             return emp
     
     status_dict = []
+    modal_dict = []
 
-    a= range(2, 50)
+    num_range= range(2, 50)
 
-    for i in a:
+    '''for i in a:
         status_dict.append('J'+str(i))
+    
+    for o in a:
+        modal_dict.append('modal'+str(o))'''
+
       
-    uccform = zip(dict_sheet, status_dict)
+    uccform = zip(dict_sheet, num_range)
 
 
     return render_template('worklist.html',  
     dict_sheet = dict_sheet,
     date_times=date_times,
     status_dict=status_dict,
+    modal_dict=modal_dict,
     uccform=uccform,
     delete_link=delete_link,
     catatan_dot=catatan_dot,
@@ -231,6 +237,14 @@ def status():
     status_form = request.form['status_form']
     status_id = request.form['status_id']
     sheet.update(status_id, status_form)
+    if request.method == 'POST':
+        return redirect(url_for('worklist'))
+
+@app.route('/padam', methods = ['POST'])
+def padam():
+
+    padam_form = int(request.form['padam_form'])
+    sheet.delete_row(padam_form)
     if request.method == 'POST':
         return redirect(url_for('worklist'))
  
