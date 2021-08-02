@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>UCC Petugas Worklist</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=0.8" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/e2fb75d014.js" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <style>
+    .table-borderless>tbody>tr>td,
+    .table-borderless>tbody>tr>th,
+    .table-borderless>tfoot>tr>td,
+    .table-borderless>tfoot>tr>th,
+    .table-borderless>thead>tr>td,
+    .table-borderless>thead>tr>th {
+      border: none;
+    }
+
+    td {
+      text-align: center;
+    }
+
+    th {
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container" align="center">
+    <h2>UCC Petugas Worklist {{ date_times }} </h2>
+  </div>
+  <div class="container" align="right">
+    <a href="{{ url_for('archive') }}" button type="button" class="btn btn-primary">Archive</a>
+    <br>
+    <br>
+  </div>
+  <nav>
+    <div class="nav nav-tabs container justify-content-center nav-fill w-100" id="nav-tab" role="tablist">
+      <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button"
+        role="tab" aria-controls="nav-home" aria-selected="true">Line listing order</button>
+      <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button"
+        role="tab" aria-controls="nav-profile" aria-selected="false">Ward order</button>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="tab-content" id="nav-tabContent">
+      <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+        <div id="listorder">
+          <table class="table" width="100%">
+            <thead>
+              <tr>
+                <th>Rujukan</th>
+                <th>PIC</th>
+                <th>Contact</th>
+                <th><i class="fas fa-male fa-2x"></i></th>
+                <th><i class="fas fa-female fa-2x"></i></th>
+                <th><i class="fas fa-user-friends fa-2x"></i></th>
+                <th>Catatan</th>
+                <th>GS</th>
+                <th>Excel</th>
+                <th><i class="fas fa-trash-alt fa-lg"></i></th>
+                <th>Status</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              {% for dict_sheet,num_range in uccform %}
+
+              <tr>
+                <td style="text-align:left">{{ dict_sheet.cac }}</td>
+                <td style="text-align:left">{{ dict_sheet.pic }}</td>
+                <td>{{ dict_sheet.contact }}</td>
+                <td>{{ dict_sheet.male }}</td>
+                <td>{{ dict_sheet.female }}</td>
+                <td>{{ dict_sheet.family }}</td>
+                <td><i tabindex="0" role="button" class="{{ catatan_dot(dict_sheet.catatan) }}" data-bs-trigger="focus"
+                    data-bs-toggle="popover" data-bs-content="{{ catatan_empty(dict_sheet.catatan) }}"></i>
+                </td>
+                <td><a href="{{ dict_sheet.g_sheet }}" target="_blank">{{ delete_link(dict_sheet.g_sheet)}}</a></td>
+                <td><a href="{{ dict_sheet.excel }}" target="_blank">{{ delete_link(dict_sheet.excel)}}</a></td>
+                <td><i role="button" class="fas fa-times fa-lg" style="color:red" data-bs-toggle="modal"
+                    data-bs-target="#modal{{ num_range }}"></i>
+
+                  <div class="modal fade" id="modal{{ num_range }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          Ada anda pasti untuk PADAM?<br> Rujukan: {{ dict_sheet.cac }} <br> PIC: {{ dict_sheet.pic }}
+                        </div>
+                        <div class="modal-footer">
+                          <form action=/padam method="POST">
+                            <button button type="submit" class="btn btn-danger">PADAM</button>
+                            <input type="hidden" id="padam_form" name="padam_form" value="{{ num_range }}">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">TIDAK</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </td>
+                <td>
+                  <form action=/status method="POST">
+                    <select name="status_form" id="status_form" onchange="this.form.submit()">
+                      <option value="{{ dict_sheet.status}}" selected>{{ dict_sheet.status}}</option>
+                      <option value="TERIMA">TERIMA</option>
+                      <option value="SIAP">SIAP</option>
+                      <option value="MASALAH">MASALAH</option>
+                    </select>
+
+                    <input type="hidden" id="custId" name="status_id" value="J{{ num_range }}">
+                  </form>
+                </td>
+              </tr>
+
+              {% endfor %}
+
+            </tbody>
+          </table>
+        </div>
+        <div class="text-center">
+          <a class="btn btn-primary" href="{{ url_for('panduan')}}" onclick="window.open('{{ url_for('panduan')}}', 
+                             'newwindow', 
+                             'width=500,height=700'); 
+                  return false;">Panduan Petugas UCC</a>
+          <a class="btn btn-primary" href="{{ url_for('kriteria')}}" onclick="window.open('{{ url_for('kriteria')}}', 
+                              'newwindow', 
+                              'width=900,height=500'); 
+                  return false;">Kriteria PKRC</a>
+
+
+        </div>
+
+
+
+      </div>
+      <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+        <div id="wardorder">
+          <div class="table-responsive-lg">
+            <font size="2">
+              <table class="table" width="100%">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Penempatan</th>
+                    <th>PIC</th>
+                    <th>Rujukan</th>
+                    <th style="white-space: nowrap;">Nama Penuh Pesakit</th>
+                    <th>No. IC</th>
+                    <th>Umur</th>
+                    <th>Jantina</th>
+                    <th>Warganegara</th>
+                    <th>Comorbid</th>
+                    <th style="white-space: nowrap;">Alamat Rumah Pesakit</th>
+                    <th>No. telefon</th>
+                    <th>Kluster</th>
+                    <th>Tarikh Swab</th>
+                    <th>Penjaga</th>
+                    <th>Status Penjaga</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for ward_sh, num_range in wadform %}
+
+                  <tr>
+                    <td><button class="copy-btn">Copy</button></td>
+                    <td>
+                      <form action=/penempatan method="POST">
+                        <select name="penempatan_form" id="penempatan_form" onchange="this.form.submit()">
+                          <option value="{{ ward_sh.penempatan}}" selected>{{ ward_sh.penempatan}}</option>
+                          <option value="UMP">UMP</option>
+                          <option value="ILKKM">ILKKM</option>
+                          <option value="KUIPSAS">KUIPSAS</option>
+                          <option value="SUKPA">SUKPA</option>
+                          <option value="I-KPKT">I-KPKT</option>
+                          <option value="JENGKA">JENGKA</option>
+                        </select>
+
+                        <input type="hidden" id="custId" name="penempatan_id" value="P{{ num_range }}">
+                      </form>
+                    </td>
+                    <td style="white-space: nowrap;">{{ ward_sh.incaj }}</td>
+                    <td style="white-space: nowrap;">{{ ward_sh.rujukan }}</td>
+                    <td>{{ ward_sh.nama }}</td>
+                    <td>{{ ward_sh.ic }}</td>
+                    <td>{{ ward_sh.umur }}</td>
+                    <td>{{ ward_sh.jantina }}</td>
+                    <td>{{ ward_sh.warganegara }}</td>
+                    <td>{{ ward_sh.comorbid }}</td>
+                    <td>{{ ward_sh.alamat }}</td>
+                    <td>{{ ward_sh.phone }}</td>
+                    <td>{{ ward_sh.kluster }}</td>
+                    <td>{{ ward_sh.swab }}</td>
+                    <td>{{ ward_sh.penjaga }}</td>
+                    <td>{{ ward_sh.status_penjaga }}</td>
+                  </tr>
+                  {% endfor %}
+
+                </tbody>
+              </table>
+
+            </font>
+          </div>
+        </div>
+        <br>
+        <div class="text-center">
+          <a href="{{ url_for('wardorder') }}" class="btn btn-primary btn-rounded mb-4">RELOAD PAGE</a>
+          <a href="https://docs.google.com/spreadsheets/d/1IAd0NYGO8SteNL85GVHV_sawyMfvyWqlNYbKqQ8eUR0" target="blank"
+            class="btn btn-primary btn-rounded mb-4">Google Sheet</a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  </div>
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+    integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"
+    integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT"
+    crossorigin="anonymous"></script>
+
+  <script>
+    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+    var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+      return new bootstrap.Popover(popoverTriggerEl)
+    })
+    var popover = new bootstrap.Popover(document.querySelector('.popover-dismiss'), {
+      trigger: 'focus'
+    })
+  </script>
+  <script>
+    $(document).ready(function () {
+      setInterval(function () {
+        $("#listorder").load(window.location.href + " #listorder");
+      }, 60000);
+    });
+  </script>
+  <script>
+    $(".copy-btn").click(function () {
+      let tmpElement = $('<textarea style="opacity:0;"></textarea>');
+      let parent = $(this).closest('td').siblings().each(function () {
+        tmpElement.text(tmpElement.text() + $(this).text() + '\t');
+      });
+
+      tmpElement.appendTo($('body')).focus().select();
+      document.execCommand("copy");
+      tmpElement.remove();
+    });
+
+  </script>
+
+</body>
+
+</html>
