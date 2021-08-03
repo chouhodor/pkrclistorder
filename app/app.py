@@ -1,4 +1,5 @@
 
+from logging import exception
 import os
 import json
 import gspread
@@ -40,21 +41,25 @@ archive_sheet = spreadsheet_archive.sheet1
 spreadsheet_ward = client.open_by_url("https://docs.google.com/spreadsheets/d/1IAd0NYGO8SteNL85GVHV_sawyMfvyWqlNYbKqQ8eUR0")
 ward_sheet = spreadsheet_ward.sheet1 
 
-'''###SUKPA###
-spreadsheet_sukpa = client.open_by_url("https://docs.google.com/spreadsheets/d/1ILr17LgncRwNmGYmztu-QFdhp7MtOEm1Nnq2QORI3_I")
-sukpa_sh = spreadsheet_sukpa.worksheet("HTAA")
+try:
+    ###ILKKM###
+    spreadsheet_ilkkm = client.open_by_url("https://docs.google.com/spreadsheets/d/17g4wofsHYsuWBTokyY2G0ipkQsQS-eWWidvAbuN8ugM")
+    ilkkm_sh = spreadsheet_ilkkm.worksheet("HTAA")
 
-###ILKKM###
-spreadsheet_ilkkm = client.open_by_url("https://docs.google.com/spreadsheets/d/17g4wofsHYsuWBTokyY2G0ipkQsQS-eWWidvAbuN8ugM")
-ilkkm_sh = spreadsheet_ilkkm.worksheet("HTAA")
+    ###SUKPA###
+    spreadsheet_sukpa = client.open_by_url("https://docs.google.com/spreadsheets/d/1ILr17LgncRwNmGYmztu-QFdhp7MtOEm1Nnq2QORI3_I")
+    sukpa_sh = spreadsheet_sukpa.worksheet("HTAA")
 
-###UMP###
-spreadsheet_ump = client.open_by_url("https://docs.google.com/spreadsheets/d/1XYYkgr7laJCmynqWt9v-Inom6I9RNJPOEvENr88aNdA")
-ump_sh = spreadsheet_ump.worksheet("HTAA")
+    ###UMP###
+    spreadsheet_ump = client.open_by_url("https://docs.google.com/spreadsheets/d/1XYYkgr7laJCmynqWt9v-Inom6I9RNJPOEvENr88aNdA")
+    ump_sh = spreadsheet_ump.worksheet("HTAA")
 
-###KUIPSAS###
-spreadsheet_kuipsas = client.open_by_url("https://docs.google.com/spreadsheets/d/1_1uJsZ_nUKGWyBtCBSNfLhFQ1tZhRpbmFwSlitTsyuk")
-kuipsas_sh = spreadsheet_kuipsas.worksheet("HTAA")'''
+    ###KUIPSAS###
+    spreadsheet_kuipsas = client.open_by_url("https://docs.google.com/spreadsheets/d/1_1uJsZ_nUKGWyBtCBSNfLhFQ1tZhRpbmFwSlitTsyuk")
+    kuipsas_sh = spreadsheet_kuipsas.worksheet("HTAA")
+    
+except:
+    pass
 
 
 @app.route('/', methods=['POST','GET'])
@@ -333,29 +338,31 @@ def status():
 @app.route('/penempatan', methods = ['POST'])
 def penempatan():
 
+    ward_sh = ward_sheet
     penempatan_form = request.form['penempatan_form']
     penempatan_id = request.form['penempatan_id']
     row_num = int(request.form['row_num'])
-    ward_sheet.update(penempatan_id, penempatan_form)
-    if request.method == 'POST':
-        if penempatan == 'UMP':
-            admit_pt = ward_sheet.row_values(row_num)
-            admit_pt=admit_pt[2:-1]
-            ump_sh.append_row(admit_pt)
-        elif penempatan == 'ILKKM':
-            admit_pt = ward_sheet.row_values(row_num)
-            admit_pt=admit_pt[2:-1]
-            ilkkm_sh.append_row(admit_pt)
-        elif penempatan == 'KUIPSAS':
-            admit_pt = ward_sheet.row_values(row_num)
-            admit_pt=admit_pt[2:-1]
-            kuipsas_sh.append_row(admit_pt)
-        elif penempatan == 'SUKPA':
-            admit_pt = ward_sheet.row_values(row_num)
-            admit_pt=admit_pt[2:-1]
-            sukpa_sh.append_row(admit_pt)
+    ward_sh.update(penempatan_id, penempatan_form)
+    if penempatan_form == 'UMP':
+        admit_pt = ward_sh.row_values(row_num)
+        admit_pt=admit_pt[2:-1]
+        ump_sh.append_row(admit_pt)
+    elif penempatan_form == 'ILKKM':
+        admit_pt = ward_sh.row_values(row_num)
+        admit_pt=admit_pt[2:-1]
+        ilkkm_sh.append_row(admit_pt)
+    elif penempatan_form == 'KUIPSAS':
+        admit_pt = ward_sh.row_values(row_num)
+        admit_pt=admit_pt[2:-1]
+        kuipsas_sh.append_row(admit_pt)
+    elif penempatan_form == 'SUKPA':
+        admit_pt = ward_sh.row_values(row_num)
+        admit_pt=admit_pt[2:-1]
+        sukpa_sh.append_row(admit_pt)
+    else:
+        pass
 
-        return redirect(url_for('wardlist'))
+    return redirect(url_for('wardlist'))
         
 @app.route('/padam', methods = ['POST'])
 def padam():

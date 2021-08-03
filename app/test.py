@@ -47,11 +47,10 @@ ikpkt_sh = spreadsheet_ikpkt.worksheet("HTAA")
 spreadsheet_kuipsas = client.open_by_url("https://docs.google.com/spreadsheets/d/1_1uJsZ_nUKGWyBtCBSNfLhFQ1tZhRpbmFwSlitTsyuk")
 kuipsas_sh = spreadsheet_kuipsas.worksheet("HTAA")'''
 
-###JENGKA###
-spreadsheet_jengka = client.open_by_url("https://docs.google.com/spreadsheets/d/1Mtig4CWF1juOwdPX8rc-PM_C49KtUsNiuKBSluXQCQU")
-jengka_sh = spreadsheet_jengka.worksheet("HTAA")
 
-
+###ILKKM###
+spreadsheet_ilkkm = client.open_by_url("https://docs.google.com/spreadsheets/d/17g4wofsHYsuWBTokyY2G0ipkQsQS-eWWidvAbuN8ugM")
+ilkkm_sh = spreadsheet_ilkkm.worksheet("HTAA")
 
 
 dict_sheet = sheet.get_all_records()
@@ -94,9 +93,8 @@ for d in ward_sh:
 #list_sheet = [list(d.values()) for d in dict_sheet]
 #print(list_sheet[1])
 
-admit_pt = ward_sheet.row_values(2)
+admit_pt = ward_sheet.row_values(3)
 admit_pt=admit_pt[2:-1]
-print(admit_pt)
-jengka_sh.append_row(admit_pt)
+ilkkm_sh.append_row(admit_pt)
 
 
