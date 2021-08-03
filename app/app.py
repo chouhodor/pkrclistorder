@@ -40,6 +40,25 @@ archive_sheet = spreadsheet_archive.sheet1
 spreadsheet_ward = client.open_by_url("https://docs.google.com/spreadsheets/d/1IAd0NYGO8SteNL85GVHV_sawyMfvyWqlNYbKqQ8eUR0")
 ward_sheet = spreadsheet_ward.sheet1 
 
+spreadsheet_jengka = client.open_by_url("https://docs.google.com/spreadsheets/d/1Mtig4CWF1juOwdPX8rc-PM_C49KtUsNiuKBSluXQCQU")
+jengka_sh = spreadsheet_jengka.worksheet("HTAA")
+
+###SUKPA###
+spreadsheet_sukpa = client.open_by_url("https://docs.google.com/spreadsheets/d/1ILr17LgncRwNmGYmztu-QFdhp7MtOEm1Nnq2QORI3_I")
+sukpa_sh = spreadsheet_sukpa.worksheet("HTAA")
+
+###ILKKM###
+spreadsheet_ilkkm = client.open_by_url("https://docs.google.com/spreadsheets/d/17g4wofsHYsuWBTokyY2G0ipkQsQS-eWWidvAbuN8ugM")
+ilkkm_sh = spreadsheet_ilkkm.worksheet("HTAA")
+
+###UMP###
+spreadsheet_ump = client.open_by_url("https://docs.google.com/spreadsheets/d/1XYYkgr7laJCmynqWt9v-Inom6I9RNJPOEvENr88aNdA")
+ump_sh = spreadsheet_ump.worksheet("HTAA")
+
+###KUIPSAS###
+spreadsheet_kuipsas = client.open_by_url("https://docs.google.com/spreadsheets/d/1_1uJsZ_nUKGWyBtCBSNfLhFQ1tZhRpbmFwSlitTsyuk")
+kuipsas_sh = spreadsheet_kuipsas.worksheet("HTAA")
+
 
 @app.route('/', methods=['POST','GET'])
 def index():
@@ -117,10 +136,10 @@ def index():
 def wardorder():
 
 
-    dict_sheet = ward_sheet.get_all_records()
+    ward_sh = ward_sheet.get_all_records()
     date_times = (datetime.now() + timedelta(hours=8)).strftime("%d/%m/%Y %H:%M:%S")
    
-    for d in dict_sheet:
+    for d in ward_sh:
         d['incaj'] = d.pop('Nama incaj yang merujuk')
         d['rujukan'] = d.pop('Sumber Rujukan')
         d['nama'] = d.pop('Nama penuh pesakit')
@@ -142,12 +161,12 @@ def wardorder():
         
     num_range= range(2, 50)
 
-    wadform = zip(dict_sheet, num_range)
+    wadform = zip(ward_sh, num_range)
 
 
     
     return render_template('wardorder.html',  
-    dict_sheet = dict_sheet,
+   ward_sh =ward_sh,
     date_times=date_times,
     wadform=wadform
     )
@@ -319,8 +338,26 @@ def penempatan():
 
     penempatan_form = request.form['penempatan_form']
     penempatan_id = request.form['penempatan_id']
+    row_num = int(request.form['row_num'])
     ward_sheet.update(penempatan_id, penempatan_form)
     if request.method == 'POST':
+        if penempatan == 'UMP':
+            admit_pt = ward_sheet.row_values(row_num)
+            admit_pt=admit_pt[2:-1]
+            ump_sh.append_row(admit_pt)
+        elif penempatan == 'ILKKM':
+            admit_pt = ward_sheet.row_values(row_num)
+            admit_pt=admit_pt[2:-1]
+            ilkkm_sh.append_row(admit_pt)
+        elif penempatan == 'KUIPSAS':
+            admit_pt = ward_sheet.row_values(row_num)
+            admit_pt=admit_pt[2:-1]
+            kuipsas_sh.append_row(admit_pt)
+        elif penempatan == 'SUKPA':
+            admit_pt = ward_sheet.row_values(row_num)
+            admit_pt=admit_pt[2:-1]
+            sukpa_sh.append_row(admit_pt)
+
         return redirect(url_for('wardlist'))
         
 @app.route('/padam', methods = ['POST'])

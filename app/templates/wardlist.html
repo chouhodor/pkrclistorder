@@ -58,7 +58,7 @@
           <table class="table" width="100%">
             <thead>
               <tr>
-                <th></th>
+                <!--<th></th>--->
                 <th>Penempatan</th>
                 <th>PIC</th>
                 <th>Rujukan</th>
@@ -82,7 +82,7 @@
               {% for ward_sh, num_range in wadform %}
 
               <tr>
-                <td><button class="copy-btn">Copy</button></td>
+                <!---<td><button class="copy-btn">Copy</button></td>--->
                 <td>
                   <form action=/penempatan method="POST">
                     <select name="penempatan_form" id="penempatan_form" onchange="this.form.submit()">
@@ -93,9 +93,11 @@
                       <option value="SUKPA">SUKPA</option>
                       <option value="I-KPKT">I-KPKT</option>
                       <option value="JENGKA">JENGKA</option>
+                      <option value="MASALAH">MASALAH</option>
                     </select>
 
-                    <input type="hidden" id="custId" name="penempatan_id" value="Q{{ num_range }}">
+                    <input type="hidden" id="custId" name="penempatan_id" value="C{{ num_range }}">
+                    <input type="hidden" id="custId" name="row_num" value="{{ num_range-1 }}">
                   </form>
                 </td>
                 <td style="white-space: nowrap;">{{ ward_sh.incaj }}</td>

@@ -53,12 +53,12 @@
   </div>
   <div class="container">
     <div class="accordion accordion-flush" id="accordionTable">
-      {% for dict_sheet,num_range in wadform %}
+      {% for ward_sh,num_range in wadform %}
       <div class="accordion-item">
         <h2 class="accordion-header" id="heading{{num_range}}">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
             data-bs-target="#collapse{{num_range}}" aria-expanded="false" aria-controls="collapse{{num_range}}">
-            PIC: {{ dict_sheet.incaj }} {{ dict_sheet.rujukan }}<br>Nama Pesakit: {{ dict_sheet.nama }}
+            PIC: {{ ward_sh.incaj }} {{ ward_sh.rujukan }}<br>Nama Pesakit: {{ ward_sh.nama }}
           </button>
         </h2>
         <div id="collapse{{num_range}}" class="accordion-collapse collapse" aria-labelledby="heading{{num_range}}"
@@ -67,35 +67,35 @@
             <table class="table" width="100%">
               <tbody>
                 <tr>
-                  <td>No. IC: {{ dict_sheet.ic }}</td>
-                  <td>Umur: {{ dict_sheet.umur }}</td>
+                  <td>No. IC: {{ ward_sh.ic }}</td>
+                  <td>Umur: {{ ward_sh.umur }}</td>
                 </tr>
                 <tr>
-                  <td>Jantina: {{ dict_sheet.jantina }}</td>
-                  <td>Warganegara: {{ dict_sheet.warganegara }}</td>
+                  <td>Jantina: {{ ward_sh.jantina }}</td>
+                  <td>Warganegara: {{ ward_sh.warganegara }}</td>
                 </tr>
                 <tr>
-                  <td>Comorbid: {{ dict_sheet.comorbid }}</td>
-                  <td>Alamat: {{ dict_sheet.alamat }}</td>
+                  <td>Comorbid: {{ ward_sh.comorbid }}</td>
+                  <td>Alamat: {{ ward_sh.alamat }}</td>
                 </tr>
                 <tr>
-                  <td>No. telefon: {{ dict_sheet.phone }}</td>
-                  <td>Kategori klinikal: {{ dict_sheet.cat }}</td>
+                  <td>No. telefon: {{ ward_sh.phone }}</td>
+                  <td>Kategori klinikal: {{ ward_sh.cat }}</td>
                 </tr>
                 <tr>
-                  <td>Kluster: {{ dict_sheet.kluster }}</td>
-                  <td>Tarikh swab: {{ dict_sheet.swab }}</td>
+                  <td>Kluster: {{ ward_sh.kluster }}</td>
+                  <td>Tarikh swab: {{ ward_sh.swab }}</td>
                 </tr>
                 <tr>
-                  <td>Penjaga: {{ dict_sheet.penjaga }}</td>
-                  <td>Status penjaga: {{ dict_sheet.status_penjaga }}</td>
+                  <td>Penjaga: {{ ward_sh.penjaga }}</td>
+                  <td>Status penjaga: {{ ward_sh.status_penjaga }}</td>
                 </tr>
                 <tr>
-                  <td>Penempatan: {{ dict_sheet.penempatan }}</td>
+                  <td>Penempatan: {{ ward_sh.penempatan }}</td>
                   <td></td>
                 </tr>
                 <tr>
-                  <td colspan="2"><a href="{{ dict_sheet.edit }}" target="_blank"
+                  <td colspan="2"><a href="{{ ward_sh.edit }}" target="_blank"
                       class="btn btn-primary btn-rounded mb-4">Kemaskini Maklumat Pesakit</a></td>
                 </tr>
 
