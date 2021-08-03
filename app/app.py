@@ -40,10 +40,7 @@ archive_sheet = spreadsheet_archive.sheet1
 spreadsheet_ward = client.open_by_url("https://docs.google.com/spreadsheets/d/1IAd0NYGO8SteNL85GVHV_sawyMfvyWqlNYbKqQ8eUR0")
 ward_sheet = spreadsheet_ward.sheet1 
 
-spreadsheet_jengka = client.open_by_url("https://docs.google.com/spreadsheets/d/1Mtig4CWF1juOwdPX8rc-PM_C49KtUsNiuKBSluXQCQU")
-jengka_sh = spreadsheet_jengka.worksheet("HTAA")
-
-###SUKPA###
+'''###SUKPA###
 spreadsheet_sukpa = client.open_by_url("https://docs.google.com/spreadsheets/d/1ILr17LgncRwNmGYmztu-QFdhp7MtOEm1Nnq2QORI3_I")
 sukpa_sh = spreadsheet_sukpa.worksheet("HTAA")
 
@@ -57,7 +54,7 @@ ump_sh = spreadsheet_ump.worksheet("HTAA")
 
 ###KUIPSAS###
 spreadsheet_kuipsas = client.open_by_url("https://docs.google.com/spreadsheets/d/1_1uJsZ_nUKGWyBtCBSNfLhFQ1tZhRpbmFwSlitTsyuk")
-kuipsas_sh = spreadsheet_kuipsas.worksheet("HTAA")
+kuipsas_sh = spreadsheet_kuipsas.worksheet("HTAA")'''
 
 
 @app.route('/', methods=['POST','GET'])
