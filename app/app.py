@@ -13,23 +13,23 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'ucctransporttopsecret'
 
 
-'''
-#live test
-scopes = ["https://spreadsheets.google.com/feeds","https://www.googleapis.com/auth/drive.file","https://www.googleapis.com/auth/drive"]
-json_creds = os.getenv("GOOGLE_SHEETS_CREDS_JSON")
+try:
+    #live test
+    scopes = ["https://spreadsheets.google.com/feeds","https://www.googleapis.com/auth/drive.file","https://www.googleapis.com/auth/drive"]
+    json_creds = os.getenv("GOOGLE_SHEETS_CREDS_JSON")
 
-creds_dict = json.loads(json_creds)
-creds_dict["private_key"] = creds_dict["private_key"].replace("\\\\n", "\n")
-creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scopes)
-client = gspread.authorize(creds)
-#live test
+    creds_dict = json.loads(json_creds)
+    creds_dict["private_key"] = creds_dict["private_key"].replace("\\\\n", "\n")
+    creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scopes)
+    client = gspread.authorize(creds)
+    #live test
 
-'''
-#local test
-scope = ["https://spreadsheets.google.com/feeds","https://www.googleapis.com/auth/drive.file","https://www.googleapis.com/auth/drive"]
-creds = ServiceAccountCredentials.from_json_keyfile_name('app/ucc-transport.json', scope)
-client = gspread.authorize(creds)
-#local test
+except:
+    #local test
+    scope = ["https://spreadsheets.google.com/feeds","https://www.googleapis.com/auth/drive.file","https://www.googleapis.com/auth/drive"]
+    creds = ServiceAccountCredentials.from_json_keyfile_name('app/ucc-transport.json', scope)
+    client = gspread.authorize(creds)
+    #local test
 
 
 spreadsheet_lo = client.open_by_url("https://docs.google.com/spreadsheets/d/1VXYj_XYbLJLYTKY2G39YEffylcKS1PTSsGMyO2YqD-8")
@@ -363,6 +363,84 @@ def penempatan():
         pass
 
     return redirect(url_for('wardlist'))
+
+
+@app.route('/report')
+def report():
+    
+    date_times = (datetime.now() + timedelta(hours=8)).strftime("%d/%m/%Y")
+
+    ###SUKPA###
+    spreadsheet_sukpa = client.open_by_url("https://docs.google.com/spreadsheets/d/1ILr17LgncRwNmGYmztu-QFdhp7MtOEm1Nnq2QORI3_I")
+    sukpa_sh = spreadsheet_sukpa.sheet1
+    sukpa_input = sukpa_sh.row_values(4)
+    sukpa_input.pop(0)
+    
+
+    ###ILKKM###
+    spreadsheet_ilkkm = client.open_by_url("https://docs.google.com/spreadsheets/d/17g4wofsHYsuWBTokyY2G0ipkQsQS-eWWidvAbuN8ugM")
+    ilkkm_sh = spreadsheet_ilkkm.sheet1
+    ilkkm_input = ilkkm_sh.row_values(4)
+    ilkkm_input.pop(0)
+
+    ###UMP###
+    spreadsheet_ump = client.open_by_url("https://docs.google.com/spreadsheets/d/1XYYkgr7laJCmynqWt9v-Inom6I9RNJPOEvENr88aNdA")
+    ump_sh = spreadsheet_ump.sheet1
+    ump_input = ump_sh.row_values(4)
+    ump_input.pop(0)
+
+    ###IKPKT###
+    spreadsheet_ikpkt = client.open_by_url("https://docs.google.com/spreadsheets/d/1AL7AU2uyf4al1kmnyGTE2fALVf5nAMDg7k0ogAvO0Cw")
+    ikpkt_sh = spreadsheet_ikpkt.sheet1
+    ikpkt_input = ikpkt_sh.row_values(4)
+    ikpkt_input.pop(0)
+
+    ###KUIPSAS###
+    spreadsheet_kuipsas = client.open_by_url("https://docs.google.com/spreadsheets/d/1_1uJsZ_nUKGWyBtCBSNfLhFQ1tZhRpbmFwSlitTsyuk")
+    kuipsas_sh = spreadsheet_kuipsas.sheet1
+    kuipsas_input = kuipsas_sh.row_values(4)
+    kuipsas_input.pop(0)
+
+    ###MARAN###
+    spreadsheet_maran = client.open_by_url("https://docs.google.com/spreadsheets/d/1Mtig4CWF1juOwdPX8rc-PM_C49KtUsNiuKBSluXQCQU")
+    maran_sh = spreadsheet_maran.sheet1
+    maran_input = maran_sh.row_values(4)
+    maran_input.pop(0)
+
+    ###UNITEN###
+    spreadsheet_uniten = client.open_by_url("https://docs.google.com/spreadsheets/d/1d2K9Pgpq4m5ovLXkfbG7w0jnVkspfZY0AHU7-31RoJg")
+    uniten_sh = spreadsheet_uniten.sheet1
+    uniten_input = uniten_sh.row_values(4)
+    uniten_input.pop(0)
+
+    ###TEMERLOH###
+    spreadsheet_temerloh = client.open_by_url("https://docs.google.com/spreadsheets/d/1Z-A1NvMbMUuFMiy9-64ploCMZMU66eHobaTme6wxf88")
+    temerloh_sh = spreadsheet_temerloh.sheet1
+    temerloh_input = temerloh_sh.row_values(4)
+    temerloh_input.pop(0)
+
+    def number(x):
+        y = list(map(int, x))
+        return y
+
+
+    zip_pkrc = zip(number(sukpa_input), number(ilkkm_input), number(ump_input), number(ikpkt_input), number(kuipsas_input), number(maran_input), number(uniten_input), number(temerloh_input))
+
+    sum_pkrc = [w + x + y + z + a + b +c + d for (w, x, y, z, a, b, c, d) in zip_pkrc]
+
+    return render_template('report.html',
+    sukpa_input=sukpa_input,
+    ilkkm_input=ilkkm_input,
+    ump_input=ump_input,
+    ikpkt_input=ikpkt_input,
+    kuipsas_input=kuipsas_input,
+    maran_input=maran_input,
+    uniten_input=uniten_input,
+    temerloh_input=temerloh_input,
+    sum_pkrc=sum_pkrc,
+    date_times=date_times
+    )
+
         
 @app.route('/padam', methods = ['POST'])
 def padam():

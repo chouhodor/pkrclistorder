@@ -28,17 +28,20 @@
     }
   </style>
 </head>
-
-<body>
+<header>
   <div class="container" align="center">
     <h2>UCC Petugas Worklist {{ date_times }} </h2>
   </div>
+</header>
+
+<body>
   <div class="container" align="right">
+    <a href="{{ url_for('report') }}" button type="button" class="btn btn-primary">Report</a>
     <a href="{{ url_for('archive') }}" button type="button" class="btn btn-primary">Archive</a>
     <br>
     <br>
   </div>
-  <div class="container">
+  <!-----<div class="container">
     <ul class="nav nav-tabs nav-fill w-100">
       <li class="nav-item">
         <a class="nav-link active" aria-current="page" href="#">List Order</a>
@@ -47,7 +50,7 @@
         <a class="nav-link" href="{{ url_for('wardlist') }}">Ward Order</a>
       </li>
     </ul>
-  </div>
+  </div>----->
   <div class="container">
     <div id="listorder">
       <table class="table" width="100%">
