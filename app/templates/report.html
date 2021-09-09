@@ -25,20 +25,26 @@
     th {
       text-align: center;
     }
+
+    .center {
+      margin-left: auto;
+      margin-right: auto;
+    }
   </style>
 </head>
 <header>
   <div class="container" align="center">
-    <h2>UCC Daily Report   {{ date_times }}</h2>
+    <h2>UCC Daily Report {{ date_times }}</h2>
   </div>
 </header>
+
 <body>
   <div class="container" align="right">
     <a href="{{ url_for('worklist') }}" button type="button" class="btn btn-primary">Worklist</a>
     <br>
     <br>
   </div>
-  <div class="container" width="70">
+  <!---<div id="expand" class="container" width="70%">
     <table class="table" width="100%">
       <thead>
         <tr>
@@ -55,66 +61,129 @@
         </tr>
       </thead>
       <tbody>
-        
+
         <tr>
           <td style="text-align:left">SUKPA</td>
-        {% for item in sukpa_input  %}
+          {% for item in sukpa_input %}
           <td>{{ item }}</td>
-        {% endfor %}
+          {% endfor %}
         </tr>
         <tr>
           <td style="text-align:left">ILKKM</td>
-        {% for item in ilkkm_input  %}
+          {% for item in ilkkm_input %}
           <td>{{ item }}</td>
-        {% endfor %}
+          {% endfor %}
         </tr>
         <tr>
           <td style="text-align:left">UMP</td>
-        {% for item in ump_input  %}
+          {% for item in ump_input %}
           <td>{{ item }}</td>
-        {% endfor %}
+          {% endfor %}
         </tr>
         <tr>
           <td style="text-align:left">I-KPKT</td>
-        {% for item in ikpkt_input  %}
+          {% for item in ikpkt_input %}
           <td>{{ item }}</td>
-        {% endfor %}
+          {% endfor %}
         </tr>
         <tr>
           <td style="text-align:left">KUIPSAS</td>
-        {% for item in kuipsas_input  %}
+          {% for item in kuipsas_input %}
           <td>{{ item }}</td>
-        {% endfor %}
+          {% endfor %}
         </tr>
         <tr>
           <td style="text-align:left">Maran</td>
-        {% for item in maran_input  %}
+          {% for item in maran_input %}
           <td>{{ item }}</td>
-        {% endfor %}
+          {% endfor %}
         </tr>
         <tr>
           <td style="text-align:left">UNITEN</td>
-        {% for item in uniten_input  %}
+          {% for item in uniten_input %}
           <td>{{ item }}</td>
-        {% endfor %}
+          {% endfor %}
         </tr>
         <tr>
           <td style="text-align:left">Temerloh</td>
-        {% for item in temerloh_input  %}
+          {% for item in temerloh_input %}
           <td>{{ item }}</td>
-        {% endfor %}
+          {% endfor %}
         </tr>
         <tr>
           <td style="text-align:left">Jumlah</td>
-        {% for item in sum_pkrc  %}
+          {% for item in sum_pkrc %}
           <td>{{ item }}</td>
-        {% endfor %}
-        </tr>   
-      
+          {% endfor %}
+        </tr>
+
       </tbody>
     </table>
+  </div>--->
+  <div class="container">
+    <div id="simplified" style="width: 400px; margin:0 auto;">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>PKRC</th>
+            <th>Jumlah</th>
+            <th>PUS</th>
+
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr>
+            <td style="text-align:left">SUKPA</td>
+            <td>{{ sukpa_input[0] }}</td>
+            <td>{{ sukpa_input[7] }}</td>
+          </tr>
+          <tr>
+            <td style="text-align:left">ILKKM</td>
+            <td>{{ ilkkm_input[0] }}</td>
+            <td>{{ ilkkm_input[7] }}</td>
+          </tr>
+          <tr>
+            <td style="text-align:left">UMP</td>
+            <td>{{ ump_input[0] }}</td>
+            <td>{{ ump_input[7] }}</td>
+          </tr>
+          <tr>
+            <td style="text-align:left">I-KPKT</td>
+            <td>{{ ikpkt_input[0] }}</td>
+            <td>{{ ikpkt_input[7] }}</td>
+          </tr>
+          <tr>
+            <td style="text-align:left">KUIPSAS</td>
+            <td>{{ kuipsas_input[0] }}</td>
+            <td>{{ kuipsas_input[7] }}</td>
+          </tr>
+          <tr>
+            <td style="text-align:left">Maran</td>
+            <td>{{ maran_input[0] }}</td>
+            <td>{{ maran_input[7] }}</td>
+          </tr>
+          <tr>
+            <td style="text-align:left">UNITEN</td>
+            <td>{{ uniten_input[0] }}</td>
+            <td>{{ uniten_input[7] }}</td>
+          </tr>
+          <tr>
+            <td style="text-align:left">Temerloh</td>
+            <td>{{ temerloh_input[0] }}</td>
+            <td>{{ temerloh_input[7] }}</td>
+          </tr>
+          <tr>
+            <td style="text-align:left">Jumlah</td>
+            <td>{{ sum_pkrc[0] }}</td>
+            <td>{{ sum_pkrc[7] }}</td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
   </div>
-  
+
 
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
     integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
@@ -133,10 +202,10 @@
     })
   </script>
   <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
       $('[data-toggle="tooltip"]').tooltip();
     });
-    </script>
+  </script>
 </body>
 
 </html>
