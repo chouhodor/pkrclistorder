@@ -183,6 +183,7 @@ def worklist():
     for d in dict_sheet:
         d['cac'] = d.pop('CAC/PKD')
         d['pic'] = d.pop('Name PIC/Pemanggil')
+        d['pic'] = d['pic'].title()
         d['contact'] = d.pop('No Contact PIC/Pemanggil')
         d['male'] = d.pop('Bilangan Pesakit Lelaki')
         d['female'] = d.pop('Bilangan Pesakit Perempuan')
