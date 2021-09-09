@@ -44,9 +44,9 @@
         <tr>
           <th>PKRC</th>
           <th>Jumlah</th>
-          <th><i class="fas fa-male fa-2x"></th>
-          <th><i class="fas fa-female fa-2x"></th>
-          <th><i class="fas fa-child fa-2x"></i></i></th>
+          <th><i data-toggle="tooltip" title="Lelaki" class="fas fa-male fa-2x"></i></th>
+          <th><i data-toggle="tooltip" title="Perempuan" class="fas fa-female fa-2x"></i></th>
+          <th><i data-toggle="tooltip" title="Bawah 12 tahun" class="fas fa-child fa-2x"></i></th>
           <th>CAT1</i></th>
           <th>CAT2</i></th>
           <th>CAT3/4</th>
@@ -132,6 +132,11 @@
       trigger: 'focus'
     })
   </script>
+  <script>
+    $(document).ready(function(){
+      $('[data-toggle="tooltip"]').tooltip();
+    });
+    </script>
 </body>
 
 </html>
