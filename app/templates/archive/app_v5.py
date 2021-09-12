@@ -134,6 +134,44 @@ def index():
     delete_icon=delete_icon
     )
 
+@app.route('/wardorder', methods=['POST','GET'])
+def wardorder():
+
+
+    ward_sh = ward_sheet.get_all_records()
+    date_times = (datetime.now() + timedelta(hours=8)).strftime("%d/%m/%Y %H:%M:%S")
+   
+    for d in ward_sh:
+        d['incaj'] = d.pop('Nama incaj yang merujuk')
+        d['rujukan'] = d.pop('Sumber Rujukan')
+        d['nama'] = d.pop('Nama penuh pesakit')
+        d['ic'] = d.pop('No. IC')
+        d['umur'] = d.pop('Umur')
+        d['jantina'] = d.pop('Jantina')
+        d['warganegara'] = d.pop('Warganegara')
+        d['comorbid'] = d.pop('Comorbid')
+        d['alamat'] = d.pop('Alamat Rumah')
+        d['phone'] = d.pop('No. telefon')
+        d['cat'] = d.pop('Kategori klinikal')
+        d['kluster'] = d.pop('Kluster jika berkaitan')
+        d['swab'] = d.pop('Tarikh swab diambil')
+        d['penjaga'] = d.pop('Penjaga jika ada ')
+        d['status_penjaga'] = d.pop('Status COVID-19 penjaga ')
+        d['penempatan'] = d.pop('Penempatan')
+        d['edit'] = d.pop('Form Response Edit URL')
+        
+        
+    num_range= range(2, 50)
+
+    wadform = zip(ward_sh, num_range)
+
+
+    
+    return render_template('wardorder.html',  
+   ward_sh =ward_sh,
+    date_times=date_times,
+    wadform=wadform
+    )
 
 @app.route('/worklist', methods=['POST','GET'])
 def worklist():
@@ -194,6 +232,46 @@ def worklist():
     delete_link=delete_link,
     catatan_dot=catatan_dot,
     catatan_empty=catatan_empty
+    )
+
+@app.route('/wardlist', methods=['POST','GET'])
+def wardlist():
+
+
+    ward_sh = ward_sheet.get_all_records()
+
+    date_times = (datetime.now() + timedelta(hours=8)).strftime("%d/%m/%Y %H:%M:%S") 
+
+    for d in ward_sh:
+        d['incaj'] = d.pop('Nama incaj yang merujuk')
+        d['rujukan'] = d.pop('Sumber Rujukan')
+        d['nama'] = d.pop('Nama penuh pesakit')
+        d['ic'] = d.pop('No. IC')
+        d['umur'] = d.pop('Umur')
+        d['jantina'] = d.pop('Jantina')
+        d['warganegara'] = d.pop('Warganegara')
+        d['comorbid'] = d.pop('Comorbid')
+        d['alamat'] = d.pop('Alamat Rumah')
+        d['phone'] = d.pop('No. telefon')
+        d['cat'] = d.pop('Kategori klinikal')
+        d['kluster'] = d.pop('Kluster jika berkaitan')
+        d['swab'] = d.pop('Tarikh swab diambil')
+        d['penjaga'] = d.pop('Penjaga jika ada ')
+        d['status_penjaga'] = d.pop('Status COVID-19 penjaga ')
+        d['penempatan'] = d.pop('Penempatan')
+        d['edit'] = d.pop('Form Response Edit URL')
+    
+   
+
+    num_range= range(2, 50)
+      
+    wadform = zip(ward_sh, num_range)
+
+
+    return render_template('wardlist.html',  
+    ward_sh=ward_sh,
+    date_times=date_times,
+    wadform=wadform
     )
 
 @app.route('/archive', methods=['POST','GET'])
@@ -258,6 +336,35 @@ def status():
     if request.method == 'POST':
         return redirect(url_for('worklist'))
 
+@app.route('/penempatan', methods = ['POST'])
+def penempatan():
+
+    ward_sh = ward_sheet
+    penempatan_form = request.form['penempatan_form']
+    penempatan_id = request.form['penempatan_id']
+    row_num = int(request.form['row_num'])
+    ward_sh.update(penempatan_id, penempatan_form)
+    if penempatan_form == 'UMP':
+        admit_pt = ward_sh.row_values(row_num)
+        admit_pt=admit_pt[2:-1]
+        ump_sh.append_row(admit_pt)
+    elif penempatan_form == 'ILKKM':
+        admit_pt = ward_sh.row_values(row_num)
+        admit_pt=admit_pt[2:-1]
+        ilkkm_sh.append_row(admit_pt)
+    elif penempatan_form == 'KUIPSAS':
+        admit_pt = ward_sh.row_values(row_num)
+        admit_pt=admit_pt[2:-1]
+        kuipsas_sh.append_row(admit_pt)
+    elif penempatan_form == 'SUKPA':
+        admit_pt = ward_sh.row_values(row_num)
+        admit_pt=admit_pt[2:-1]
+        sukpa_sh.append_row(admit_pt)
+    else:
+        pass
+
+    return redirect(url_for('wardlist'))
+
 
 @app.route('/report')
 def report():
@@ -317,13 +424,6 @@ def report():
         y = list(map(int, x))
         return y
 
-    def empty(x):
-        if x == '0':
-            return ' '
-        else:
-            return x
-
-
 
     zip_pkrc = zip(number(sukpa_input), number(ilkkm_input), number(ump_input), number(ikpkt_input), number(kuipsas_input), number(maran_input), number(uniten_input), number(temerloh_input))
 
@@ -339,8 +439,7 @@ def report():
     uniten_input=uniten_input,
     temerloh_input=temerloh_input,
     sum_pkrc=sum_pkrc,
-    date_times=date_times,
-    empty=empty
+    date_times=date_times
     )
 
         

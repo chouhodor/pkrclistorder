@@ -8,6 +8,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
   <script src="https://kit.fontawesome.com/e2fb75d014.js" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <style>
     .table-borderless>tbody>tr>td,
     .table-borderless>tbody>tr>th,
@@ -50,38 +51,40 @@
     <br>
   </div>
   <div class="container">
-    <table class="table" width="100%">
-      <thead>
-        <tr>
-          <th>CAC/PKD</th>
-          <th><i class="fas fa-male fa-2x"></i></th>
-          <th><i class="fas fa-female fa-2x"></i></th>
-          <th><i class="fas fa-user-friends fa-2x"></i></th>
-          <th>Status</th>
-          <th>GS</th>
-          <th>Excel</th>
-          <th>Edit Form</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for item in dict_sheet %}
+    <div id="listorder">
+      <table class="table" width="100%">
+        <thead>
+          <tr>
+            <th>CAC/PKD</th>
+            <th><i class="fas fa-male fa-2x"></i></th>
+            <th><i class="fas fa-female fa-2x"></i></th>
+            <th><i class="fas fa-user-friends fa-2x"></i></th>
+            <th>Status</th>
+            <th>GS</th>
+            <th>Excel</th>
+            <th>Edit Form</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in dict_sheet %}
 
-        <tr>
-          <td style="text-align:left">{{ item.cac }}</td>
-          <td>{{ item.male }}</td>
-          <td>{{ item.female }}</td>
-          <td>{{ item.family }}</td>
-          <td>{{ item.status }}</td>
-          <td><a href="{{ item.g_sheet }}" target="_blank">{{ delete_link(item.g_sheet)}}</a> <i
-              class="{{ delete_icon(item.g_sheet) }}" style="{{ tick_icon(item.status)}}"></i></td>
-          <td><a href="{{ item.excel }}" target="_blank">{{ delete_link(item.excel)}}</a> <i
-              class="{{ delete_icon(item.excel) }}" style="{{ tick_icon(item.status)}}"></i></td>
-          <td><a href="{{ item.edit_response }}" target="_blank">{{ delete_edit(item.edit_response)}}</a></td>
-        </tr>
-        {% endfor %}
+          <tr>
+            <td style="text-align:left">{{ item.cac }}</td>
+            <td>{{ item.male }}</td>
+            <td>{{ item.female }}</td>
+            <td>{{ item.family }}</td>
+            <td>{{ item.status }}</td>
+            <td><a href="{{ item.g_sheet }}" target="_blank">{{ delete_link(item.g_sheet)}}</a> <i
+                class="{{ delete_icon(item.g_sheet) }}" style="{{ tick_icon(item.status)}}"></i></td>
+            <td><a href="{{ item.excel }}" target="_blank">{{ delete_link(item.excel)}}</a> <i
+                class="{{ delete_icon(item.excel) }}" style="{{ tick_icon(item.status)}}"></i></td>
+            <td><a href="{{ item.edit_response }}" target="_blank">{{ delete_edit(item.edit_response)}}</a></td>
+          </tr>
+          {% endfor %}
 
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </div>
   </div>
   <div class="text-center">
     <a href="{{ url_for('index') }}" class="btn btn-primary btn-rounded mb-4">RELOAD PAGE</a>
@@ -90,6 +93,13 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
     crossorigin="anonymous"></script>
+  <script>
+    $(document).ready(function () {
+      setInterval(function () {
+        $("#listorder").load(window.location.href + " #listorder");
+      }, 60000);
+    });
+  </script>
 
 </body>
 
