@@ -424,6 +424,13 @@ def report():
         y = list(map(int, x))
         return y
 
+    def empty(x):
+        if x == '0':
+            return ' '
+        else:
+            return x
+
+
 
     zip_pkrc = zip(number(sukpa_input), number(ilkkm_input), number(ump_input), number(ikpkt_input), number(kuipsas_input), number(maran_input), number(uniten_input), number(temerloh_input))
 
@@ -439,7 +446,8 @@ def report():
     uniten_input=uniten_input,
     temerloh_input=temerloh_input,
     sum_pkrc=sum_pkrc,
-    date_times=date_times
+    date_times=date_times,
+    empty=empty
     )
 
         
