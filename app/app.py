@@ -313,6 +313,12 @@ def report():
     temerloh_input = temerloh_sh.row_values(4)
     temerloh_input.pop(0)
 
+    ###IPGLIPIS###
+    spreadsheet_ipglipis = client.open_by_url("https://docs.google.com/spreadsheets/d/1Z-A1NvMbMUuFMiy9-64ploCMZMU66eHobaTme6wxf88")
+    ipglipis_sh = spreadsheet_ipglipis.sheet1
+    ipglipis_input = ipglipis_sh.row_values(4)
+    ipglipis_input.pop(0)
+
     def number(x):
         y = list(map(int, x))
         return y
@@ -325,9 +331,18 @@ def report():
 
 
 
-    zip_pkrc = zip(number(sukpa_input), number(ilkkm_input), number(ump_input), number(ikpkt_input), number(kuipsas_input), number(maran_input), number(uniten_input), number(temerloh_input))
+    zip_pkrc = zip(number(sukpa_input), 
+    number(ilkkm_input), 
+    number(ump_input), 
+    number(ikpkt_input), 
+    number(kuipsas_input), 
+    number(maran_input), 
+    number(uniten_input), 
+    number(temerloh_input),
+    number(ipglipis_input)
+    )
 
-    sum_pkrc = [w + x + y + z + a + b +c + d for (w, x, y, z, a, b, c, d) in zip_pkrc]
+    sum_pkrc = [w + x + y + z + a + b +c + d + e for (w, x, y, z, a, b, c, d, e) in zip_pkrc]
 
     return render_template('report.html',
     sukpa_input=sukpa_input,
@@ -338,6 +353,7 @@ def report():
     maran_input=maran_input,
     uniten_input=uniten_input,
     temerloh_input=temerloh_input,
+    ipglipis_input=ipglipis_input,
     sum_pkrc=sum_pkrc,
     date_times=date_times,
     empty=empty
