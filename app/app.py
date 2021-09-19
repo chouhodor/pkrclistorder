@@ -4,6 +4,7 @@ import os
 import json
 import gspread
 import pprint
+import pandas as pd
 from datetime import datetime, timedelta
 from flask import Flask, render_template, jsonify, request, abort, redirect, url_for
 from oauth2client.service_account import ServiceAccountCredentials
