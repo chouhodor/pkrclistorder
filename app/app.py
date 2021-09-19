@@ -61,6 +61,87 @@ try:
 except:
     pass
 
+kuipsas_master = []
+ump_master = []
+
+'''
+spreadsheet_ump = client.open_by_url("https://docs.google.com/spreadsheets/d/1TxoJOfqdByh27X67ZAgOzOrmOdXummCPK6goHDgnSIg")
+ump_sh = spreadsheet_ump.worksheets()
+ump_sh.pop(0)
+'''
+
+
+
+
+def master_df(master_list, spread_sheet):
+    pkrc_sh = spread_sheet.worksheets()
+    pkrc_sh.pop(0)
+    for sh in pkrc_sh:
+        df = pd.DataFrame(sh.get_all_records())
+        num_total = len(df.index)
+        try:
+            df['JANTINA'].replace('L','LELAKI', inplace=True)
+            df['JANTINA'].replace('Lelaki','LELAKI', inplace=True)
+            num_lelaki = len(df.loc[df['JANTINA']=='LELAKI'])
+        except:
+            num_lelaki = 'error'
+
+        try:
+            df['JANTINA'].replace('P','PEREMPUAN', inplace=True)
+            df['JANTINA'].replace('Perempuan','PEREMPUAN', inplace=True)
+            num_perempuan = len(df.loc[df['JANTINA']=='PEREMPUAN'])
+        except:
+            num_perempuan = 'error'
+        try:
+            num_paeds = len(df.loc[df['UMUR'] <= 12])
+        except:
+            num_paeds = 'error'
+
+        try:
+            df = df.rename(columns={'KATEGORI KLINIKAL': 'CAT'})
+            df['CAT'] = df['CAT'].replace(['CAT 2', 'CAT 2, MILD', 'CAT 2 MILD', 'Kategori 2: Symptomatic, no pneumonia (Mild)'], 2)
+            df['CAT'] = df['CAT'].replace(['CAT 1', 'Kategori 1: Asymptomatic'], 1)
+            df['CAT'] = df['CAT'].replace(['CAT 3'], 3)
+        except:
+            cat_1 = 'error'
+            cat_2 = 'error'
+            cat_3 = 'error'
+
+        try:
+            cat_1 = len(df.loc[df['CAT'] == 1])
+        except:
+            cat_1 = 'error'
+
+        try:
+            cat_2 = len(df.loc[df['CAT'] == 2])
+        except:
+            cat_2 = 'error'
+
+        try:
+            cat_3 = len(df.loc[df['CAT'] == 3])
+        except:
+            cat_3 = 'error'
+            
+        master_list.append([sh.title, num_total, num_lelaki, num_perempuan, num_paeds, cat_1, cat_2, cat_3])
+
+    master_list = [master_list[-(i+1)] for i in range(len(master_list))]
+    master_sh = spread_sheet.get_worksheet(0)
+
+
+    cell_list = master_sh.range('A28:J40')
+    for c in cell_list:
+        c.value = ''
+    master_sh.update_cells(cell_list)
+    master_sh.batch_update(
+    [
+        {'range': 'A28:J40', 'values': master_list}
+    ]
+    )
+
+
+
+
+
 
 @app.route('/', methods=['POST','GET'])
 def index():
@@ -365,6 +446,19 @@ def panduan():
 def kriteria():
     return render_template('kriteria.html')
 
+@app.route('/kuipsas')
+def kuipsas():
+    spreadsheet_kuipsas = client.open_by_url("https://docs.google.com/spreadsheets/d/1_oBxvYDTUQVHgmPVaP4t4DNHs6pgawBxKrR5oQguzj0")
+     
+    master_df(kuipsas_master, spreadsheet_kuipsas)
+    return redirect (url_for('quit'))
+
+@app.route('/quit')
+def quit():
+    #shutdown_hook = request.environ.get('werkzeug.server.shutdown')
+    #if shutdown_hook is not None:
+    #  shutdown_hook()
+    return ("Bye")
 
 if __name__ == '__main__':
     app.run(debug=True)
