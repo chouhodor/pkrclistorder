@@ -314,7 +314,7 @@ def report():
     temerloh_input.pop(0)
 
     ###IPGLIPIS###
-    spreadsheet_ipglipis = client.open_by_url("https://docs.google.com/spreadsheets/d/1Z-A1NvMbMUuFMiy9-64ploCMZMU66eHobaTme6wxf88")
+    spreadsheet_ipglipis = client.open_by_url("https://docs.google.com/spreadsheets/d/1Y_oz7bh8u93sXZ2aZ339pMkMAzkgzSGVNr_SALuBX8w")
     ipglipis_sh = spreadsheet_ipglipis.sheet1
     ipglipis_input = ipglipis_sh.row_values(4)
     ipglipis_input.pop(0)
