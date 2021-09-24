@@ -327,7 +327,7 @@ def report():
         if x == '0':
             return ' '
         else:
-            return x
+            return '({})'.format(x)
 
 
 
