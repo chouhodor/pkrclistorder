@@ -319,6 +319,12 @@ def report():
     ipglipis_input = ipglipis_sh.row_values(4)
     ipglipis_input.pop(0)
 
+    ###ROMPIN###
+    spreadsheet_rompin = client.open_by_url("https://docs.google.com/spreadsheets/d/1h19YQbYGLx0adGDGiL_3RxNm8d8Uq8Il2CZlE55gvI0")
+    rompin_sh = spreadsheet_rompin.sheet1
+    rompin_input = rompin_sh.row_values(4)
+    rompin_input.pop(0)
+
     def number(x):
         y = list(map(int, x))
         return y
@@ -339,10 +345,11 @@ def report():
     number(maran_input), 
     number(uniten_input), 
     number(temerloh_input),
-    number(ipglipis_input)
+    number(ipglipis_input),
+    number(rompin_input)
     )
 
-    sum_pkrc = [w + x + y + z + a + b +c + d + e for (w, x, y, z, a, b, c, d, e) in zip_pkrc]
+    sum_pkrc = [w + x + y + z + a + b +c + d + e + f for (w, x, y, z, a, b, c, d, e, f) in zip_pkrc]
 
     return render_template('report.html',
     sukpa_input=sukpa_input,
@@ -354,6 +361,7 @@ def report():
     uniten_input=uniten_input,
     temerloh_input=temerloh_input,
     ipglipis_input=ipglipis_input,
+    rompin_input=rompin_input,
     sum_pkrc=sum_pkrc,
     date_times=date_times,
     empty=empty
