@@ -340,28 +340,18 @@ def report():
     zip_pkrc = zip(number(sukpa_input), 
     number(ilkkm_input), 
     number(ump_input), 
-    number(ikpkt_input), 
-    number(kuipsas_input), 
     number(maran_input), 
     number(uniten_input), 
-    number(temerloh_input),
-    number(ipglipis_input),
-    number(rompin_input)
     )
 
-    sum_pkrc = [w + x + y + z + a + b +c + d + e + f for (w, x, y, z, a, b, c, d, e, f) in zip_pkrc]
+    sum_pkrc = [w + x + y + z + a for (w, x, y, z, a) in zip_pkrc]
 
     return render_template('report.html',
     sukpa_input=sukpa_input,
     ilkkm_input=ilkkm_input,
     ump_input=ump_input,
-    ikpkt_input=ikpkt_input,
-    kuipsas_input=kuipsas_input,
     maran_input=maran_input,
     uniten_input=uniten_input,
-    temerloh_input=temerloh_input,
-    ipglipis_input=ipglipis_input,
-    rompin_input=rompin_input,
     sum_pkrc=sum_pkrc,
     date_times=date_times,
     empty=empty
