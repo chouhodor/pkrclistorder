@@ -337,20 +337,16 @@ def report():
 
 
 
-    zip_pkrc = zip(number(sukpa_input), 
+    zip_pkrc = zip(
     number(ilkkm_input), 
     number(maran_input), 
-    number(uniten_input), 
     )
 
-    sum_pkrc = [w + x + y + z for (w, x, y, z) in zip_pkrc]
+    sum_pkrc = [w + x for (w, x) in zip_pkrc]
 
     return render_template('report.html',
-    sukpa_input=sukpa_input,
     ilkkm_input=ilkkm_input,
-    ump_input=ump_input,
     maran_input=maran_input,
-    uniten_input=uniten_input,
     sum_pkrc=sum_pkrc,
     date_times=date_times,
     empty=empty
