@@ -337,8 +337,7 @@ def report():
 
 
 
-    zip_pkrc = zip(
-    number(ilkkm_input), 
+    zip_pkrc = zip(number(ilkkm_input), 
     number(maran_input), 
     )
 
