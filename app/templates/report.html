@@ -136,10 +136,26 @@
             <td>{{ empty(ilkkm_input[7]) }}</td>
           </tr>
           <tr>
-            <td style="text-align:left">Jumlah(PUS)     </td>
-            <td>{{ sum_pkrc[0] }}</td>
-            <td>{{ empty(sum_pkrc[7]) }}</td>
+            <td></td>
+            <td></td>
+            <td></td>
           </tr>
+          {% for i in ilkkm_refer %}
+          {% if i[0] != '' %}
+          <tr>
+            <td style="text-align:left">{{i[0]}}</td>
+            <td>{{i[1]}}</td>
+            {% if i[8] != '' %}
+            <td>({{i[8]}})</td>
+            {% else %}
+            <td></td>
+            {% endif %}
+
+          </tr>
+          {% else %}
+
+          {% endif %}
+          {% endfor %}
 
         </tbody>
       </table>

@@ -264,6 +264,60 @@ def report():
     
     date_times = (datetime.now() + timedelta(hours=8)).strftime("%d/%m/%Y")
 
+    def number(x):
+        y = list(map(int, x))
+        return y
+
+    def empty(x):
+        if x == '0':
+            return ' '
+        else:
+            return '({})'.format(x)
+
+
+
+    ###ILKKM###
+    spreadsheet_ilkkm = client.open_by_url("https://docs.google.com/spreadsheets/d/17g4wofsHYsuWBTokyY2G0ipkQsQS-eWWidvAbuN8ugM")
+    ilkkm_sh = spreadsheet_ilkkm.sheet1
+    ilkkm_input = ilkkm_sh.row_values(4)
+    ilkkm_input.pop(0)
+
+    ilkkm_refer = ilkkm_sh.get('7:16')
+
+    return render_template('report.html',
+    ilkkm_input=ilkkm_input,
+    date_times=date_times,
+    empty=empty,
+    ilkkm_refer=ilkkm_refer
+    )
+
+        
+@app.route('/padam', methods = ['POST'])
+def padam():
+
+    padam_form = int(request.form['padam_form'])
+    sheet.delete_row(padam_form)
+    if request.method == 'POST':
+        return redirect(url_for('worklist'))
+
+
+@app.route('/form')
+def form():
+    return redirect("https://docs.google.com/forms/d/e/1FAIpQLSf_U8oc7xCl9dUN_j9m7SVwYtEJnbuitIQSsYfF2dw3a-oC3w/viewform?usp=sf_link")
+
+@app.route('/panduan')
+def panduan():
+    return render_template('panduan.html')
+
+@app.route('/kriteria')
+def kriteria():
+    return render_template('kriteria.html')
+'''
+@app.route('/report')
+def report():
+    
+    date_times = (datetime.now() + timedelta(hours=8)).strftime("%d/%m/%Y")
+
     ###SUKPA###
     spreadsheet_sukpa = client.open_by_url("https://docs.google.com/spreadsheets/d/1ILr17LgncRwNmGYmztu-QFdhp7MtOEm1Nnq2QORI3_I")
     sukpa_sh = spreadsheet_sukpa.sheet1
@@ -350,29 +404,9 @@ def report():
     date_times=date_times,
     empty=empty
     )
-
-        
-@app.route('/padam', methods = ['POST'])
-def padam():
-
-    padam_form = int(request.form['padam_form'])
-    sheet.delete_row(padam_form)
-    if request.method == 'POST':
-        return redirect(url_for('worklist'))
-
-
-@app.route('/form')
-def form():
-    return redirect("https://docs.google.com/forms/d/e/1FAIpQLSf_U8oc7xCl9dUN_j9m7SVwYtEJnbuitIQSsYfF2dw3a-oC3w/viewform?usp=sf_link")
-
-@app.route('/panduan')
-def panduan():
-    return render_template('panduan.html')
-
-@app.route('/kriteria')
-def kriteria():
-    return render_template('kriteria.html')
+'''
 
 
 if __name__ == '__main__':
     app.run(debug=True)
+
