@@ -27,7 +27,7 @@ try:
 except:
     #local test
     scope = ["https://spreadsheets.google.com/feeds","https://www.googleapis.com/auth/drive.file","https://www.googleapis.com/auth/drive"]
-    creds = ServiceAccountCredentials.from_json_keyfile_name('app/ucc-transport.json', scope)
+    creds = ServiceAccountCredentials.from_json_keyfile_name('ucc-transport.json', scope)
     client = gspread.authorize(creds)
     #local test
 
@@ -37,29 +37,6 @@ sheet = spreadsheet_lo.sheet1
 
 spreadsheet_archive = client.open_by_url("https://docs.google.com/spreadsheets/d/1O0P4xms_54-aV5O7_I6UPRp9dLc5nygP65U7Z84kHis")
 archive_sheet = spreadsheet_archive.sheet1 
-
-spreadsheet_ward = client.open_by_url("https://docs.google.com/spreadsheets/d/1IAd0NYGO8SteNL85GVHV_sawyMfvyWqlNYbKqQ8eUR0")
-ward_sheet = spreadsheet_ward.sheet1 
-
-try:
-    ###ILKKM###
-    spreadsheet_ilkkm = client.open_by_url("https://docs.google.com/spreadsheets/d/17g4wofsHYsuWBTokyY2G0ipkQsQS-eWWidvAbuN8ugM")
-    ilkkm_sh = spreadsheet_ilkkm.worksheet("HTAA")
-
-    ###SUKPA###
-    spreadsheet_sukpa = client.open_by_url("https://docs.google.com/spreadsheets/d/1ILr17LgncRwNmGYmztu-QFdhp7MtOEm1Nnq2QORI3_I")
-    sukpa_sh = spreadsheet_sukpa.worksheet("HTAA")
-
-    ###UMP###
-    spreadsheet_ump = client.open_by_url("https://docs.google.com/spreadsheets/d/1XYYkgr7laJCmynqWt9v-Inom6I9RNJPOEvENr88aNdA")
-    ump_sh = spreadsheet_ump.worksheet("HTAA")
-
-    ###KUIPSAS###
-    spreadsheet_kuipsas = client.open_by_url("https://docs.google.com/spreadsheets/d/1_1uJsZ_nUKGWyBtCBSNfLhFQ1tZhRpbmFwSlitTsyuk")
-    kuipsas_sh = spreadsheet_kuipsas.worksheet("HTAA")
-    
-except:
-    pass
 
 
 @app.route('/', methods=['POST','GET'])
